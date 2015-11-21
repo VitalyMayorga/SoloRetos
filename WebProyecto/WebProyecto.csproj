@@ -176,7 +176,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorariosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RetoesController.cs" />
+    <Compile Include="Controllers\RetosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -290,11 +290,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Cancha\Create.cshtml" />
-    <Content Include="Views\Cancha\Delete.cshtml" />
-    <Content Include="Views\Cancha\Details.cshtml" />
-    <Content Include="Views\Cancha\Edit.cshtml" />
-    <Content Include="Views\Cancha\Index.cshtml" />
     <Content Include="Views\Equipos\Create.cshtml" />
     <Content Include="Views\Equipos\Delete.cshtml" />
     <Content Include="Views\Equipos\Details.cshtml" />
@@ -310,21 +305,17 @@
     <Content Include="Views\Horarios\Details.cshtml" />
     <Content Include="Views\Horarios\Edit.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
-    <Content Include="Views\Retos\Create.cshtml" />
-    <Content Include="Views\Retos\Delete.cshtml" />
-    <Content Include="Views\Retos\Details.cshtml" />
-    <Content Include="Views\Retos\Edit.cshtml" />
-    <Content Include="Views\Retos\Index.cshtml" />
+    <Content Include="Views\Otros\ViewPage1.cshtml" />
     <Content Include="Views\Canchas\Create.cshtml" />
     <Content Include="Views\Canchas\Delete.cshtml" />
     <Content Include="Views\Canchas\Details.cshtml" />
     <Content Include="Views\Canchas\Edit.cshtml" />
     <Content Include="Views\Canchas\Index.cshtml" />
-    <Content Include="Views\Retoes\Create.cshtml" />
-    <Content Include="Views\Retoes\Delete.cshtml" />
-    <Content Include="Views\Retoes\Details.cshtml" />
-    <Content Include="Views\Retoes\Edit.cshtml" />
-    <Content Include="Views\Retoes\Index.cshtml" />
+    <Content Include="Views\Retos\Create.cshtml" />
+    <Content Include="Views\Retos\Delete.cshtml" />
+    <Content Include="Views\Retos\Details.cshtml" />
+    <Content Include="Views\Retos\Edit.cshtml" />
+    <Content Include="Views\Retos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
