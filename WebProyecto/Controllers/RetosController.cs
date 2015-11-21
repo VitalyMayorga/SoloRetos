@@ -10,18 +10,18 @@ using WebProyecto.Models;
 
 namespace WebProyecto.Controllers
 {
-    public class RetoesController : Controller
+    public class RetosController : Controller
     {
         private ProyectoWeb db = new ProyectoWeb();
 
-        // GET: Retoes
+        // GET: Retos
         public ActionResult Index()
         {
             var retos = db.Retos.Include(r => r.Cancha).Include(r => r.Equipos).Include(r => r.Equipos1);
             return View(retos.ToList());
         }
 
-        // GET: Retoes/Details/5
+        // GET: Retos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +36,7 @@ namespace WebProyecto.Controllers
             return View(reto);
         }
 
-        // GET: Retoes/Create
+        // GET: Retos/Create
         public ActionResult Create()
         {
             ViewBag.id_cancha = new SelectList(db.Canchas, "id", "nombre");
@@ -45,7 +45,7 @@ namespace WebProyecto.Controllers
             return View();
         }
 
-        // POST: Retoes/Create
+        // POST: Retos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +65,7 @@ namespace WebProyecto.Controllers
             return View(reto);
         }
 
-        // GET: Retoes/Edit/5
+        // GET: Retos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace WebProyecto.Controllers
             return View(reto);
         }
 
-        // POST: Retoes/Edit/5
+        // POST: Retos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -102,7 +102,7 @@ namespace WebProyecto.Controllers
             return View(reto);
         }
 
-        // GET: Retoes/Delete/5
+        // GET: Retos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,7 +117,7 @@ namespace WebProyecto.Controllers
             return View(reto);
         }
 
-        // POST: Retoes/Delete/5
+        // POST: Retos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
