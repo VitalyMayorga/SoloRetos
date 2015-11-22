@@ -27,7 +27,8 @@ namespace WebProyecto
                       "~/Content/bootstrap.min.css",
                       "~/Content/site.css",
                       "~/Content/social-buttons.css",
-                      "~/Content/main.css"));
+                      "~/Content/main.css",
+                      "~/Content/styles.css"));
         }
     }
 }

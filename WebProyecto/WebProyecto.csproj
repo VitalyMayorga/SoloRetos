@@ -228,7 +228,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Models\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>
@@ -309,7 +309,7 @@
     <Content Include="Views\Horarios\Details.cshtml" />
     <Content Include="Views\Horarios\Edit.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
-    <Content Include="Views\Otros\ViewPage1.cshtml" />
+    <Content Include="Views\Usuarios\Otros\ViewPage1.cshtml" />
     <Content Include="Views\Canchas\Create.cshtml" />
     <Content Include="Views\Canchas\Delete.cshtml" />
     <Content Include="Views\Canchas\Details.cshtml" />
