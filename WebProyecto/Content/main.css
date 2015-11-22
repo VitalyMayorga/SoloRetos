@@ -1,0 +1,19 @@
+﻿body {
+}
+
+#footer {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: #fff;
+  background: #2e2e2e;
+  border-top: 5px solid #2A7321;
+  
+}
+
+.social-icons{
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  margin-right: 4%;
+  text-align:right;
+  color: #315568;
+}

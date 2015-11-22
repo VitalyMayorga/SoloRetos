@@ -220,7 +220,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\social-buttons.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="img\white_facebook.png" />
+    <Content Include="img\white_twitter_bird.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
