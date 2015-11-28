@@ -26,5 +26,11 @@ namespace WebProyecto.Controllers
 
             return View();
         }
+
+        public ActionResult Nuevo_Usuario()
+        { 
+            return View();
+        }
+
     }
 }

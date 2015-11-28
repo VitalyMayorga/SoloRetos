@@ -120,6 +120,34 @@ namespace WebProyecto.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Usuarios/Registrarse
+        public ActionResult Registrarse()
+        {
+            ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre");
+            return View();
+        }
+
+        // POST: Usuarios/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registrarse([Bind(Include = "id,nombre,apellido,telefono,correo,contraseña,equipo_id")] Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Usuarios.Add(usuario);
+                db.SaveChanges();
+                //return RedirectToAction("Index");
+                TempData["registro"] = "Usuario creado con éxito";
+                return RedirectToAction("Nuevo_Usuario", "Home");
+            }
+
+            ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre", usuario.equipo_id);
+            return View(usuario);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

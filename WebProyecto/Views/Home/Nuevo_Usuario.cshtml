@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Nuevo_Usuario";
+}
+
+<h1>Nuevo Usuario</h1>
+
+@if (TempData["registro"] != null)
+{
+    <p>@TempData["registro"]</p>
+}
+
+<p>@Html.ActionLink("Regresar a la página principal", "Index", "Home")</p>
