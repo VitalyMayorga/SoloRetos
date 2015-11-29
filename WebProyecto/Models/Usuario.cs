@@ -21,6 +21,7 @@ namespace WebProyecto.Models
         public string correo { get; set; }
         public string contraseña { get; set; }
         public Nullable<int> equipo_id { get; set; }
+        public string Rol { get; set; }
     
         public virtual Equipos Equipos { get; set; }
     }

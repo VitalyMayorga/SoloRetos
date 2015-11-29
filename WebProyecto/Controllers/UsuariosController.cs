@@ -144,9 +144,63 @@ namespace WebProyecto.Controllers
             }
 
             ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre", usuario.equipo_id);
+            
             return View(usuario);
         }
 
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult Iniciar_Sesion(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Iniciar_Sesion(string returnUrl, string correo, string contraseña)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            try
+            {
+                /*var rol = (from q in db.Usuarios
+                            where q.correo == correo && q.contraseña == contraseña
+                            select q).Select(model => model.Rol).Single();
+                Session["rol"] = rol.ToString();*/
+                var usuario = (from q in db.Usuarios
+                           where q.correo == correo && q.contraseña == contraseña
+                           select q).Single();
+                string nombre = usuario.nombre + " " + usuario.apellido;
+                Session["rol"] = usuario.Rol.ToString();
+                Session["usuario"] = nombre;
+                return RedirectToAction("Index", "Home");
+            }
+            catch(Exception e) {
+                ModelState.AddModelError("", "Usuario o contraseña inválidos");
+                Session["rol"] = null;
+                Session["usuario"] = null;
+                return View();
+            }
+            
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            Session["rol"] = null;
+            Session["usuario"] = null;
+            return RedirectToAction("Index", "Home");
+        }
 
         protected override void Dispose(bool disposing)
         {

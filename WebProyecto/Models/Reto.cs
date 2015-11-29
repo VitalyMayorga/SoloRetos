@@ -21,6 +21,8 @@ namespace WebProyecto.Models
         public System.TimeSpan horaInicio { get; set; }
         public System.TimeSpan horaFinal { get; set; }
         public Nullable<int> precio { get; set; }
+        public string resultado { get; set; }
+        public string ganador { get; set; }
     
         public virtual Cancha Cancha { get; set; }
         public virtual Equipos Equipos { get; set; }
