@@ -7,7 +7,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Bienvenido " + Session["usuario"] + "!", "Index", "Home")
+                @Html.ActionLink(Session["usuario"] + "", "Index", "Home")
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a></li>
         </ul>

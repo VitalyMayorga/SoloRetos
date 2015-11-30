@@ -6,6 +6,33 @@
 
 <h2>Registrarse</h2>
 
+<head>
+    <script type="text/javascript">
+    window.onload = function() {
+
+    	var ex1 = document.getElementById('boton1');
+    	var ex2 = document.getElementById('boton2');
+
+    	ex1.onclick = handler;
+    	ex2.onclick = handler;
+
+    }
+
+    function handler() {
+
+        var ex1 = document.getElementById('boton1');
+        var ex2 = document.getElementById('boton2');
+        var ex3 = document.getElementById('campo2');
+        if (ex1.checked) {
+            ex3.readOnly = false;
+        }
+        if (ex2.checked) {
+            ex3.readOnly = true;
+        }
+    }
+    </script>
+</head>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -69,6 +96,42 @@
                 @Html.ValidationMessageFor(model => model.equipo_id, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            <div class="control label col-md-4">
+                
+               Equipo Nuevo @Html.RadioButton("boton", "Equipo Nuevo", htmlAttributes: new { id = "boton1" })
+                
+                Equipo Existente @Html.RadioButton("boton", "Equipo Existente", htmlAttributes: new { id = "boton2" })
+
+            </div>
+
+            </div>
+
+
+        <div class="form-group">
+            @Html.Label("Código de acceso", htmlAttributes: new { id = "etiqueta1", @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.Editor("campo1",new { htmlAttributes = new { id = "campo1", @class = "form-control" } })
+                @*@Html.Editor("", new { htmlAttributes = new { id = "campo1", @class = "form-control" } })*@
+                @*@Html.EditorFor(model => model.contraseña, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@Html.ValidationMessage("", new { @class = "text-danger" })*@
+                
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="Verificar" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Nombre de equipo", htmlAttributes: new { id = "etiqueta2", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("campo2", new { htmlAttributes = new { id = "campo2", @class = "form-control" } })
+                @*@Html.EditorFor(model => model.contraseña, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.contraseña, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

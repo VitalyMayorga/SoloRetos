@@ -26,6 +26,28 @@
                     <li>@Html.ActionLink("Ranking de equipos", "Ranking", "Equipos")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contáctenos", "Contact", "Home")</li>
+                    @if (Session["rol"] != null)
+                    {
+                        string rol = Session["rol"] + "";
+                        if (rol.Equals("jugador"))
+                        {
+                            <li>@Html.ActionLink("Buscar reto", "", "")</li>
+                        }
+                        else
+                        {
+                            if (rol.Equals("administrador"))
+                            {
+                                <li>@Html.ActionLink("Administrar", "", "")</li>
+                            }
+                            else
+                            {
+                                if (rol.Equals("dueño"))
+                                {
+                                    <li>@Html.ActionLink("Mi cancha", "", "")</li>
+                                }
+                            }
+                        }
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
