@@ -13,7 +13,7 @@ namespace WebProyecto.Controllers
     public class UsuariosController : Controller
     {
         private ProyectoWeb db = new ProyectoWeb();
-
+        
         // GET: Usuarios
         public ActionResult Index()
         {
@@ -209,6 +209,12 @@ namespace WebProyecto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult getNombreEquipo (string codAcceso)
+        {
+            var result = from r in db.Equipos where r.codAcceso == codAcceso select new { r.nombre };
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
