@@ -4,7 +4,7 @@
     ViewBag.Title = "Registrarse";
 }
 
-<h2>Registrarse</h2>
+<h2>Registro de nuevos usuarios</h2>
 
 <head>
     <script type="text/javascript">
@@ -38,8 +38,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Usuario</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -98,15 +96,12 @@
         </div>
 
         <div class="form-group">
-            <div class="control label col-md-4">
-                
-               Equipo Nuevo @Html.RadioButton("boton", "Equipo Nuevo", htmlAttributes: new { id = "boton1" })
-                
-                Equipo Existente @Html.RadioButton("boton", "Equipo Existente", htmlAttributes: new { id = "boton2" })
-
-            </div>
-
-            </div>
+            @Html.Label("Equipo Nuevo", htmlAttributes: new { id = "etiqueta1" , @class="control-label col-md-2"})
+            @Html.RadioButton("boton", "Equipo Nuevo", htmlAttributes: new { id = "boton1", @class = "col-md-1" })
+            @Html.Label("Equipo Existente", htmlAttributes: new { id = "etiqueta1", @class = "control-label col-md-2" })
+            @Html.RadioButton("boton", "Equipo Nuevo", htmlAttributes: new { id = "boton2", @class = "col-md-1" })
+            
+        </div>
 
 
         <div class="form-group">
