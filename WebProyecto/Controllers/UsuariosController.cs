@@ -236,17 +236,19 @@ namespace WebProyecto.Controllers
         }
 
         [HttpPost]
-        public Boolean validarCodAcceso (string codAcceso)
+        public ActionResult validarCodAcceso (string codAcceso)
         {
             try
             {
                 var result = (from r in db.Equipos where r.codAcceso == codAcceso select r).Select(model => model.nombre).Single();
-                return false;
+                return Json(new { success = false, responseText = "El código de acceso no es válido" }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return true;
+                return Json(new { success = true, responseText = "El código de acceso es válido" }, JsonRequestBehavior.AllowGet);
             }
+            
+            
         }
 
         [HttpPost]

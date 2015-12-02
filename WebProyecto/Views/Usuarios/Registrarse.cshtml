@@ -42,13 +42,15 @@
                         data: {
                             codAcceso:$("#campo1").val()
                         },
-                        success: function (data) {
-                            if (data) {
-                                alert("Código válido");
+                        success: function (response) {
+                            if (response.success) {
+                                alert("El código de acceso es válido");
+                                $("#registro").attr("disabled", false);
                             } else {
-                                alert("Código inválido");
-                            }
-                        } 
+                                alert("El código de acceso no es válido");
+                                $("#registro").attr("disabled", true);
+                            }             
+                        }
                     });
                 } else {
                     if ($("#boton2").is(':checked')) {
@@ -144,14 +146,14 @@
         
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Registrarme" id="registro" disabled class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar a la página de inicio", "Index")
 </div>
 
 @section Scripts {

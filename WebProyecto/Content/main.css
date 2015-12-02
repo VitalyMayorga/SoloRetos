@@ -56,3 +56,10 @@ ul.listar {
     margin-left: 2%;
     margin-right: 2%;
 }
+
+.acercaDe {
+    margin: 0 0 10px;
+    margin-left: 2%;
+    margin-right: 50%;
+    text-align: justify;
+}
