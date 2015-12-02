@@ -39,7 +39,6 @@ namespace WebProyecto.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre");
             return View();
         }
 
@@ -132,20 +131,45 @@ namespace WebProyecto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrarse([Bind(Include = "id,nombre,apellido,telefono,correo,contraseña,equipo_id")] Usuario usuario)
+        public ActionResult Registrarse(string nombre, string apellido,string telefono,string correo, string contraseña,string campo1,string campo2)
         {
-            if (ModelState.IsValid)
+            Equipos nuevo = new Equipos();
+            try
             {
-                db.Usuarios.Add(usuario);
-                db.SaveChanges();
-                //return RedirectToAction("Index");
-                TempData["registro"] = "Usuario creado con éxito";
-                return RedirectToAction("Nuevo_Usuario", "Home");
+                // Revisa si el equipo existe 
+                var consulta = (from q in db.Equipos
+                               where q.codAcceso == campo1
+                               select q).Single();
             }
+            catch
+            {
+                // Si no existe lo inserta
+                nuevo.nombre=campo2;
+                nuevo.codAcceso = campo1;
+                nuevo.victorias = 0;
+                nuevo.empates = 0;
+                nuevo.derrotas = 0;
+                db.Equipos.Add(nuevo);
+                db.SaveChanges();
+            }
+            // Hace la consulta para sacar el id del equipo
+            var equipo = (from q in db.Equipos
+                          where q.codAcceso == campo1
+                          select q).Single();
+            var id_equipo = equipo.id;
+            // Inserto el usuario
+            Usuario usuario = new Usuario();
+            usuario.nombre = nombre;
+            usuario.apellido = apellido;
+            usuario.telefono = Int32.Parse(telefono);
+            usuario.correo = correo;
+            usuario.contraseña = contraseña;
+            usuario.equipo_id = id_equipo;
+            usuario.Rol = "administrador";
+            db.Usuarios.Add(usuario);
+            db.SaveChanges();
 
-            ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre", usuario.equipo_id);
-            
-            return View(usuario);
+            return RedirectToAction("Nuevo_Usuario","Home");
         }
 
         //
@@ -209,6 +233,20 @@ namespace WebProyecto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public Boolean validarCodAcceso (string codAcceso)
+        {
+            try
+            {
+                var result = (from r in db.Equipos where r.codAcceso == codAcceso select r).Select(model => model.nombre).Single();
+                return false;
+            }
+            catch
+            {
+                return true;
+            }
         }
 
         [HttpPost]
