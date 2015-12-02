@@ -7,16 +7,13 @@
 <h2>Registro de nuevos usuarios</h2>
 
 <head>
-    <script src="Scripts/jquery-1.10.2.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         window.onload = function() {
     	    var ex1 = document.getElementById('boton1');
     	    var ex2 = document.getElementById('boton2');
-    	    var ex4 = document.getElementById('Verificar');
     	    ex1.onclick = handler;
     	    ex2.onclick = handler;
-    	    ex4.onclick = alert;
+    	    
         }
 
         function handler() {
@@ -31,34 +28,27 @@
             }
         }
 
-        function alert() {
-            alert("HOla");
-        }
+        
 
     </script>
 
     <script type="text/javascript">
-        //$(document).ready(function () {
-        //    $('#Verificar').click(function () {
-        //        $.getJSON('/UsuariosController/getNombreEquipo' + $('#campo1').val(), function (data) {
-        //            $('#campo2').val(data);
-        //        });
-        //    });
-        //});
 
-        @*$('#Verificar').click(function () {
-            var data = {};
-            data.codAcceso = $('#campo1').val();
-            $.getJSON("@Url.Action("getNombreEquipo", "Usuarios")", data, function (result) {
-                $('#campo2').val(result);
-            });
-        });*@
+        $(document).ready(function () {
+            $("#Verificar").click(function (event) {
+                $.ajax({
+                    type:"POST",
+                    url:"@Url.Action("getNombreEquipo", "Usuarios")",
+                    data: {
+                        codAcceso:$("#campo1").val()
+                    },
+                    success: function (data) {
+                        $("#campo2").val(data);
+                    }
+                });
 
-        $(document).ready(function(){
-            $("#Verificar").click(function(){
-                alert("HOla");
-            });
-        }) 
+        });
+     })
 
     </script>
 

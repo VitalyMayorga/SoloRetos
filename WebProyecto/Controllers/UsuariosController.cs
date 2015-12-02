@@ -211,9 +211,10 @@ namespace WebProyecto.Controllers
             base.Dispose(disposing);
         }
 
-        public JsonResult getNombreEquipo (string codAcceso)
+        [HttpPost]
+        public ActionResult getNombreEquipo(string codAcceso)
         {
-            var result = from r in db.Equipos where r.codAcceso == codAcceso select new { r.nombre };
+            var result = (from r in db.Equipos where r.codAcceso == codAcceso select r).Select(model =>model.nombre).Single();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
