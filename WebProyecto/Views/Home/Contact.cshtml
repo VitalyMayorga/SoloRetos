@@ -1,17 +1,61 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Contáctenos";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<head>
+    <script type="text/javascript">
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+        $(document).ready(function () {
+            $("#submit").click(function (event) {
+                alert("Su comentario ha sido enviado");
+                event.preventDefault();
+                var url = $("#RedirectTo").val();
+               location.href = url;
+        });
+     })
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    </script>
+
+</head>
+@Html.Hidden("RedirectTo", Url.Action("Index", "Home"));
+<div class="ladoIzq">
+    <h3 class="tituloVerde">¿Desea Afiliar su cancha de fútbol 5?</h3>
+    <p class="texto">Envíe los siguientes datos a afiliacion@soloretos.com</p>
+    <ul class="listar">
+        <li>
+            Nombre de la cancha
+        </li>
+        <li>
+            Provincia
+        </li>
+        <li>
+            Cantón
+        </li>
+        <li>
+            Dirección exacta
+        </li>
+        <li>
+            Número de canchas disponibles
+        </li>
+        <li>
+            Horarios y precios.
+        </li>
+    </ul>
+</div>
+<div class="ladoDer">
+    <h3 class="tituloVerde">Contáctenos</h3>
+    <div class="form-group">
+        <label>Nombre</label>
+        <input style="margin-left:7%;" type="text">
+    </div>
+    <div class="form-group">
+        <label>Correo</label>
+        <input style="margin-left:9%;" type="text">
+    </div>
+    <div class="form-group">
+        <label style="vertical-align:top;">Comentario</label>
+        <textarea rows="10" cols="50"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" id="submit" value="Envíar" />
+    </div>
+</div>
