@@ -309,11 +309,6 @@
     <Content Include="Views\Horarios\Details.cshtml" />
     <Content Include="Views\Horarios\Edit.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
-    <Content Include="Views\Canchas\Create.cshtml" />
-    <Content Include="Views\Canchas\Delete.cshtml" />
-    <Content Include="Views\Canchas\Details.cshtml" />
-    <Content Include="Views\Canchas\Edit.cshtml" />
-    <Content Include="Views\Canchas\Index.cshtml" />
     <Content Include="Views\Retos\Create.cshtml" />
     <Content Include="Views\Retos\Delete.cshtml" />
     <Content Include="Views\Retos\Details.cshtml" />
@@ -322,6 +317,13 @@
     <Content Include="Views\Usuarios\Registrarse.cshtml" />
     <Content Include="Views\Usuarios\Iniciar_Sesion.cshtml" />
     <Content Include="Views\Home\Nuevo_Usuario.cshtml" />
+    <Content Include="Views\Canchas\Create.cshtml" />
+    <Content Include="Views\Canchas\Delete.cshtml" />
+    <Content Include="Views\Canchas\Details.cshtml" />
+    <Content Include="Views\Canchas\Edit.cshtml" />
+    <Content Include="Views\Canchas\Index.cshtml" />
+    <Content Include="Views\Canchas\Lista.cshtml" />
+    <Content Include="Views\Horarios\DatosCancha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

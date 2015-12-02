@@ -17,7 +17,8 @@ namespace WebProyecto.Controllers
         // GET: Canchas
         public ActionResult Index()
         {
-            return View(db.Canchas.ToList());
+            var canchas = db.Canchas.Include(c => c.Usuario);
+            return View(canchas.ToList());
         }
 
         // GET: Canchas/Details/5
@@ -38,6 +39,7 @@ namespace WebProyecto.Controllers
         // GET: Canchas/Create
         public ActionResult Create()
         {
+            ViewBag.admCancha = new SelectList(db.Usuarios, "id", "nombre");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace WebProyecto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,direccion,cantCanchas,telefono")] Cancha cancha)
+        public ActionResult Create([Bind(Include = "id,nombre,direccion,cantCanchas,telefono,admCancha,provincia,canton")] Cancha cancha)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace WebProyecto.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.admCancha = new SelectList(db.Usuarios, "id", "nombre", cancha.admCancha);
             return View(cancha);
         }
 
@@ -70,6 +73,7 @@ namespace WebProyecto.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.admCancha = new SelectList(db.Usuarios, "id", "nombre", cancha.admCancha);
             return View(cancha);
         }
 
@@ -78,7 +82,7 @@ namespace WebProyecto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,direccion,cantCanchas,telefono")] Cancha cancha)
+        public ActionResult Edit([Bind(Include = "id,nombre,direccion,cantCanchas,telefono,admCancha,provincia,canton")] Cancha cancha)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace WebProyecto.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.admCancha = new SelectList(db.Usuarios, "id", "nombre", cancha.admCancha);
             return View(cancha);
         }
 
@@ -113,6 +118,95 @@ namespace WebProyecto.Controllers
             db.Canchas.Remove(cancha);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Canchas/Lista
+        public ActionResult Lista()
+        {
+            Cancha cancha = new Cancha();
+            var prov = (from c in db.Canchas
+                        select c).Select(model => model.provincia).Distinct();
+            ViewBag.provincia = new SelectList(prov.ToList(),"provincia");
+            var canton = (from c in db.Canchas
+                          select c).Select(model => model.canton).Distinct();
+            ViewBag.canton = new SelectList(canton.ToList(), "canton");
+            var nombre = (from c in db.Canchas
+                          select c).Select(model => model.nombre);
+            ViewBag.nombre = new SelectList(nombre.ToList(), "nombre");
+            return View(cancha);
+        }
+        //Llenar la lista de canchas, dependiendo de los primeros filtros seleccionados
+        [HttpPost]
+        public ActionResult llenarLista(string provincia,string canton)
+        {
+
+            if (provincia.Equals("--Elija una provincia--", StringComparison.Ordinal)) {
+                if (canton.Equals("--Elija un cantón--", StringComparison.Ordinal))
+                {
+                    var nombre = (from c in db.Canchas
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+                }
+                else {
+                    var nombre = (from c in db.Canchas
+                                  where c.canton == canton
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+
+                }
+                
+            }
+            else {
+                if (canton.Equals("--Elija un cantón--", StringComparison.Ordinal))
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.provincia == provincia
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+                }
+                else
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.provincia == provincia && c.canton == canton
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+
+                }
+               
+            }
+            
+        }
+        //muestra los datos de la cancha seleccionada
+        [HttpPost]
+        public ActionResult mostrarCancha(string nombre)
+        {
+            var datos = (from c in db.Canchas
+                      where c.nombre == nombre
+                      select c).Single();
+            var horarios = from h in db.Horarios
+                           where h.id_cancha == datos.id
+                           select  h;
+            
+            
+           
+            return PartialView("~/Views/Horarios/DatosCancha.cshtml", horarios.ToList());
+
+        }
+
+        [HttpPost]
+        public ActionResult getDireccion(string nombre)
+        {
+            var direccion = (from c in db.Canchas
+                         where c.nombre == nombre
+                         select c).Select(model => model.direccion).Single();
+           
+            
+            return Json(direccion);
+
         }
 
         protected override void Dispose(bool disposing)

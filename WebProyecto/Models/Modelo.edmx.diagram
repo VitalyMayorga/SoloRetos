@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="73daca2a33b544bc8e34d85d96b9edf2" Name="Diagram1">
         <EntityTypeShape EntityType="ProyectoWebModel.Cancha" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoWebModel.Equipos" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoWebModel.Equipos" Width="1.5" PointX="0.5" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ProyectoWebModel.Horario" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ProyectoWebModel.Reto" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ProyectoWebModel.Usuario" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
@@ -15,6 +15,7 @@
         <AssociationConnector Association="ProyectoWebModel.FK_equipo" ManuallyRouted="false" />
         <AssociationConnector Association="ProyectoWebModel.FK_equipo1" ManuallyRouted="false" />
         <AssociationConnector Association="ProyectoWebModel.FK_equipo2" ManuallyRouted="false" />
+        <AssociationConnector Association="ProyectoWebModel.FK_admCancha" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

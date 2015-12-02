@@ -1,0 +1,119 @@
+﻿@model WebProyecto.Models.Cancha
+@{
+    ViewBag.Title = "Canchas Afiliadas";
+}
+<head>
+    <script type="text/javascript">
+    $(function () {
+        $('#listProvincia').change(function () {            
+            var datoP = $("#listProvincia option:selected").text();
+            var datoC = $("#listCanton option:selected").text();
+            
+             $.ajax({
+                type:"POST",
+                url:"@Url.Action("llenarLista", "Canchas")",
+                data: {
+                    provincia: datoP,
+                    canton: datoC
+
+                },
+                success: function (data) {
+                    var markup = "";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#nombre").html(markup).show();
+                }
+            });
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#listCanton').change(function () {
+            var datoP = $("#listProvincia option:selected").text();
+            var datoC = $("#listCanton option:selected").text();
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("llenarLista", "Canchas")",
+                data: {
+                    provincia: datoP,
+                    canton: datoC
+
+                },
+                success: function (data) {
+                    var markup = "";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#nombre").html(markup).show();
+                }
+            });
+        });
+    });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Buscar").click(function () {
+                var nombreC = $("#nombre option:selected").text();
+                $("#tituloCancha").text(nombreC);
+                $("#tituloCancha").show();
+                $("#datosCancha > label").show();
+                $("#labelHorario > label").show();
+                $("#partial").load("@Url.Action("mostrarCancha", "Canchas")",
+                { nombre: nombreC });
+                direccion();
+            });
+        });
+
+        function direccion() {
+            var nombreC = $("#nombre option:selected").text();
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("getDireccion", "Canchas")",
+                data: {
+                    nombre:nombreC
+                },
+            success: function (data) {
+                $("#datosCancha > p").text(data);
+            }
+        });
+        }
+    </script>
+</head>
+<div class="ladoIzq">
+    <h3 class="tituloVerde">Filtros de búsqueda</h3>
+    <div class="filtros">
+        <label>Provincia</label>
+        @Html.DropDownList("provincia", null, "--Elija una provincia--", htmlAttributes: new { id="listProvincia",@class = "form-control" })
+    </div>
+    <div class="filtros">
+        <label>Cantón</label>
+        @Html.DropDownList("canton", null, "--Elija un cantón--", htmlAttributes: new { id = "listCanton",@class = "form-control" })
+       
+    </div>
+   
+   <div class="filtros">
+       <label>Cancha</label>
+       @Html.DropDownList("nombre", null,htmlAttributes: new {@id="nombre",@class = "form-control" })
+      
+       
+   </div>
+   <div class="filtros">
+       <input type="button" id="Buscar" value="Buscar" class="btn btn-default" />
+   </div>
+</div>
+<div class="ladoDer">
+    <h3 class="tituloVerde" id="tituloCancha"></h3>
+    <div class="datosCancha" id="datosCancha">
+        <label hidden>Dirección de la cancha</label>
+        <p></p>
+
+    </div>
+    <div class="datosCancha" id="labelHorario">
+        <label hidden>Horarios</label>
+    </div>
+    <div id="partial"></div>
+</div>
+

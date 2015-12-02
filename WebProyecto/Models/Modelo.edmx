@@ -14,6 +14,9 @@
           <Property Name="direccion" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="cantCanchas" Type="int" Nullable="false" />
           <Property Name="telefono" Type="int" Nullable="false" />
+          <Property Name="admCancha" Type="int" Nullable="false" />
+          <Property Name="provincia" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="canton" Type="varchar" MaxLength="80" Nullable="false" />
         </EntityType>
         <EntityType Name="Equipos">
           <Key>
@@ -70,6 +73,18 @@
           <Property Name="equipo_id" Type="int" />
           <Property Name="Rol" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_admCancha">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Canchas" Type="Self.Canchas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Canchas">
+              <PropertyRef Name="admCancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_cancha">
           <End Role="Canchas" Type="Self.Canchas" Multiplicity="1" />
           <End Role="Retos" Type="Self.Retos" Multiplicity="*" />
@@ -136,6 +151,10 @@
           <EntitySet Name="Horario" EntityType="Self.Horario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Retos" EntityType="Self.Retos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_admCancha" Association="Self.FK_admCancha">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Canchas" EntitySet="Canchas" />
+          </AssociationSet>
           <AssociationSet Name="FK_cancha" Association="Self.FK_cancha">
             <End Role="Canchas" EntitySet="Canchas" />
             <End Role="Retos" EntitySet="Retos" />
@@ -172,6 +191,10 @@
           <Property Name="telefono" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Retos" Relationship="Self.FK_cancha" FromRole="Canchas" ToRole="Retos" />
           <NavigationProperty Name="Horarios" Relationship="Self.FK_CanchaID" FromRole="Canchas" ToRole="Horario" />
+          <Property Name="admCancha" Type="Int32" Nullable="false" />
+          <Property Name="provincia" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="canton" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="ProyectoWebModel.FK_admCancha" FromRole="Cancha" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Equipos">
           <Key>
@@ -235,6 +258,7 @@
           <Property Name="equipo_id" Type="Int32" />
           <NavigationProperty Name="Equipos" Relationship="Self.FK_equipo" FromRole="Usuarios" ToRole="Equipos" />
           <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Canchas" Relationship="ProyectoWebModel.FK_admCancha" FromRole="Usuario" ToRole="Cancha" />
         </EntityType>
         <Association Name="FK_cancha">
           <End Role="Canchas" Type="Self.Cancha" Multiplicity="1" />
@@ -322,7 +346,23 @@
             <End Role="Equipos" EntitySet="Equipos" />
             <End Role="Retos" EntitySet="Retos" />
           </AssociationSet>
+          <AssociationSet Name="FK_admCancha" Association="ProyectoWebModel.FK_admCancha">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Cancha" EntitySet="Canchas" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_admCancha">
+          <End Type="ProyectoWebModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ProyectoWebModel.Cancha" Role="Cancha" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cancha">
+              <PropertyRef Name="admCancha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -332,6 +372,9 @@
           <EntitySetMapping Name="Canchas">
             <EntityTypeMapping TypeName="ProyectoWebModel.Cancha">
               <MappingFragment StoreEntitySet="Canchas">
+                <ScalarProperty Name="canton" ColumnName="canton" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="admCancha" ColumnName="admCancha" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />

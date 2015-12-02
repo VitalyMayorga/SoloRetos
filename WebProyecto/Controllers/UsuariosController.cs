@@ -165,7 +165,7 @@ namespace WebProyecto.Controllers
             usuario.correo = correo;
             usuario.contraseña = contraseña;
             usuario.equipo_id = id_equipo;
-            usuario.Rol = "administrador";
+            usuario.Rol = "jugador";
             db.Usuarios.Add(usuario);
             db.SaveChanges();
 
@@ -182,7 +182,7 @@ namespace WebProyecto.Controllers
         }
 
         //
-        // POST: /Account/Login
+        // POST: /Usuarios/Iniciar_Sesion
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
