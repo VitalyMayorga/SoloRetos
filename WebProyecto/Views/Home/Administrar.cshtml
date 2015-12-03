@@ -3,58 +3,42 @@
     ViewBag.Title = "Administrar";
 }
 
+<h3 class="tituloVerde">Administración de la aplicación</h3>
+
 <head>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#col1").text("Nombre")
-            $("#col2").text("Apellido")
-            $("#col3").text("Teléfono")
-            $("#col4").text("Correo")
-            $("#col5").text("Contraseña")
-            $("#col6").text("Equipo")
-
-            $("#adminUsuarios").click(function (event) {
-                $.ajax({
-                    type:"POST",
-                    url: "@Url.Action("getUsuarios", "Home")",
-                    data:{},
-                    success: function (data) {
-                        for (var el in data) {
-                            $("#tabla").append(el);
-                        }
-                    }
-                });
+        $(function () {
+            $("#adminCanchas").click(function () {
+                $("#partial").load("@Url.Action("getCanchas", "Home")");
+            });
+            $("#adminEquipos").click(function () {
+                $("#partial").load("@Url.Action("getEquipos", "Home")");
+            });
+            $("#adminRetos").click(function () {
+                $("#partial").load("@Url.Action("getRetos", "Home")");
+            });
+            $("#adminUsuarios").click(function () {
+                $("#partial").load("@Url.Action("getUsuarios", "Home")");
             });
         });
     </script>
-
 </head>
-<h2  class="tituloVerde">Administración de la aplicación</h2>
 
 <div class="ladoIzq">
-    <div class="botones"><input type="button" id="adminUsuarios" value="Administración de Usuarios" class="btn btn-default" /></div>
-    <div class="botones"><input type="button" id="adminCanchas" value="Administración de Canchas" class="btn btn-default" /></div>
-    <div class="botones"><input type="button" id="adminRetos" value="Administración de Retos" class="btn btn-default" /></div>
+    <div class="botones">
+        <input type="button" id="adminCanchas" value="Administración de Canchas" class="btn btn-default" />
+    </div>
+    <div class="botones">
+        <input type="button" id="adminEquipos" value="Administración de Equipos" class="btn btn-default" />
+    </div>
+    <div class="botones">
+        <input type="button" id="adminRetos" value="Administración de Retos" class="btn btn-default" />
+    </div>
+    <div class="botones">
+        <input type="button" id="adminUsuarios" value="Administración de Usuarios" class="btn btn-default" />
+    </div>
 </div>
 <div class="ladoDer">
-    <table class="table" id="tabla">
-        <thead>
-            <tr>
-                <th id="col1">
-                </th>
-                <th id="col2">
-                </th>
-                <th id="col3">
-                </th>
-                <th id="col4">
-                </th>
-                <th id="col5">
-                </th>
-                <th id="col6">
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div id="partial"></div>
 </div>
+

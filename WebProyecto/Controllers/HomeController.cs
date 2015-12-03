@@ -42,10 +42,32 @@ namespace WebProyecto.Controllers
             return View();
         }
 
+        public ActionResult getCanchas()
+        {
+            var canchas = from c in db.Canchas
+                          select c;
+            return PartialView("~/Views/Canchas/Index.cshtml", canchas.ToList());
+        }
+
+        public ActionResult getEquipos()
+        {
+            var equipos= from e in db.Equipos
+                          select e;
+            return PartialView("~/Views/Equipos/Index.cshtml", equipos.ToList());
+        }
+
+        public ActionResult getRetos()
+        {
+            var retos = from r in db.Retos
+                          select r;
+            return PartialView("~/Views/Retos/Index.cshtml", retos.ToList());
+        }
+
         public ActionResult getUsuarios()
         {
-            var usuarios = db.Usuarios.Include(u => u.Equipos);
-            return Json(usuarios.ToList(), JsonRequestBehavior.AllowGet);
-        }
+            var usuarios = from u in db.Usuarios
+                           select u;
+            return PartialView("~/Views/Usuarios/Index.cshtml", usuarios.ToList());   
+        }     
     }
 }
