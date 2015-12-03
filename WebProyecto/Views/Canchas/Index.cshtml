@@ -15,13 +15,16 @@
             @Html.DisplayNameFor(model => model.nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.direccion)
+            @Html.DisplayNameFor(model => model.cantCanchas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.provincia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
+            @Html.DisplayNameFor(model => model.canton)
         </th>
         <th></th>
     </tr>
@@ -31,20 +34,22 @@
         <td>
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.direccion)
-        </td>
-                
+        <th>
+            @Html.DisplayFor(modelItem => item.cantCanchas)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.telefono)
+        </th>
         <td>
             @Html.DisplayFor(modelItem => item.provincia)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Usuario.nombre)
+            @Html.DisplayFor(modelItem => item.canton)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", "Canchas", new { id=item.id },null) |
+            @Html.ActionLink("Details", "Details", "Canchas", new { id=item.id },null) |
+            @Html.ActionLink("Delete", "Delete", "Canchas", new { id=item.id },null)
         </td>
     </tr>
 }

@@ -53,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.Equipos.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", "Usuarios", new { id=item.id }, null) |
+            @Html.ActionLink("Details", "Details", "Usuarios", new { id=item.id }, null) |
+            @Html.ActionLink("Delete", "Delete", "Usuarios", new { id=item.id }, null)
         </td>
     </tr>
 }
