@@ -15,9 +15,6 @@
             @Html.DisplayNameFor(model => model.nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.direccion)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.cantCanchas)
         </th>
         <th>
@@ -29,9 +26,6 @@
         <th>
             @Html.DisplayNameFor(model => model.canton)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
-        </th>
         <th></th>
     </tr>
 
@@ -40,15 +34,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.direccion)
-        </td>
-        <td>
+        <th>
             @Html.DisplayFor(modelItem => item.cantCanchas)
-        </td>
-        <td>
+        </th>
+        <th>
             @Html.DisplayFor(modelItem => item.telefono)
-        </td>
+        </th>
         <td>
             @Html.DisplayFor(modelItem => item.provincia)
         </td>
@@ -56,12 +47,9 @@
             @Html.DisplayFor(modelItem => item.canton)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Usuario.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", "Canchas", new { id=item.id },null) |
+            @Html.ActionLink("Details", "Details", "Canchas", new { id=item.id },null) |
+            @Html.ActionLink("Delete", "Delete", "Canchas", new { id=item.id },null)
         </td>
     </tr>
 }
