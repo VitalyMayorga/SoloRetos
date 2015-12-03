@@ -322,6 +322,7 @@
     <Content Include="Views\Usuarios\Registrarse.cshtml" />
     <Content Include="Views\Usuarios\Iniciar_Sesion.cshtml" />
     <Content Include="Views\Home\Nuevo_Usuario.cshtml" />
+    <Content Include="Views\Home\Administrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
