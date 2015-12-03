@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebProyecto.Models.Horario>
+
+
+<div id="container">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Desde")
+            </th>
+            <th>
+                @Html.DisplayName("Hasta")
+            </th>
+            <th>
+                @Html.DisplayName("Precio")
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.horaInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.horaFinal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.precio)
+                </td>
+                
+            </tr>
+        }
+
+    </table>
+</div>  

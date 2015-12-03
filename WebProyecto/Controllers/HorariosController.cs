@@ -120,6 +120,14 @@ namespace WebProyecto.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult DatosCancha(int id)
+        {
+            id = 1;
+            var horarios = from h in db.Horarios
+                           where h.id_cancha == id
+                           select h; 
+            return View(horarios.ToList());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
