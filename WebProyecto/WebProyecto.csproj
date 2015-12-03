@@ -324,6 +324,7 @@
     <Content Include="Views\Canchas\Index.cshtml" />
     <Content Include="Views\Canchas\Lista.cshtml" />
     <Content Include="Views\Horarios\DatosCancha.cshtml" />
+    <Content Include="Views\Home\Administrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
