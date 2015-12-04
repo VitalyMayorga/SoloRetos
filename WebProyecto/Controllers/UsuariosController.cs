@@ -205,6 +205,13 @@ namespace WebProyecto.Controllers
                 string nombre = usuario.nombre + " " + usuario.apellido;
                 Session["rol"] = usuario.Rol.ToString();
                 Session["usuario"] = nombre;
+                string rol = Session["rol"]+"";
+                if (rol.Equals("dueño")) {
+                    var cancha = (from q in db.Canchas
+                                  where q.admCancha == usuario.id
+                                  select q).Single();
+                    Session["idCancha"] = cancha.id;
+                }
                 return RedirectToAction("Index", "Home");
             }
             catch(Exception e) {

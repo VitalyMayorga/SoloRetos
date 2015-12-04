@@ -66,8 +66,9 @@ namespace WebProyecto.Controllers
         }
 
         // GET: Retos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id,int id2)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -128,6 +129,69 @@ namespace WebProyecto.Controllers
             return RedirectToAction("Index");
         }
 
+        //muestra los datos del reto seleccionado
+        [HttpPost]
+        public ActionResult cargarRetos(string fecha)
+        {
+            DateTime fechita = DateTime.Parse(fecha);
+            int idCancha = Convert.ToInt32(Session["idCancha"]);
+            
+            var retos = from h in db.Retos
+                           where h.id_cancha == idCancha && h.fecha == fechita
+                           select h;
+
+
+
+            return PartialView("~/Views/Retos/mostrarRetos.cshtml", retos.ToList());
+
+        }
+
+        [HttpPost]
+        public ActionResult datosReto(int equipo1, int equipo2, int cancha, string fech, string horaI, string horaF)
+        {
+            Session["reto"] = equipo1 + "," + equipo2 + "," + cancha + "," + fech + "," + horaI + "," + horaF;
+            var nombre = (from e in db.Equipos
+                         where e.id == equipo1 || e.id == equipo2
+                         select e).Select(model => model.nombre);
+
+
+            SelectList datos = new SelectList(nombre.ToList(), "nombre");
+            return Json(datos.ToList());
+
+        }
+        [HttpPost]
+        public ActionResult borrarReto(int valor)
+        {
+            var datos = Session["reto"].ToString().Split(',');
+            int eq1 = Convert.ToInt32(datos[0]);
+            int eq2 = Convert.ToInt32(datos[1]);
+            int cancha = Convert.ToInt32(datos[2]);
+            DateTime fecha = DateTime.ParseExact(datos[3],"MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            TimeSpan horaI = TimeSpan.Parse(datos[4]);
+            TimeSpan horaF = TimeSpan.Parse(datos[5]);
+            Reto reto = db.Retos.Find(eq1,eq2,cancha,fecha,horaI,horaF);
+            db.Retos.Remove(reto);
+            db.SaveChanges();
+            return RedirectToAction("AdmCanchas","Canchas");
+        }
+
+        [HttpPost]
+        public ActionResult editarReto(string marcador, string ganador)
+        {
+            var datos = Session["reto"].ToString().Split(',');
+            int eq1 = Convert.ToInt32(datos[0]);
+            int eq2 = Convert.ToInt32(datos[1]);
+            int cancha = Convert.ToInt32(datos[2]);
+            DateTime fecha = DateTime.ParseExact(datos[3], "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            TimeSpan horaI = TimeSpan.Parse(datos[4]);
+            TimeSpan horaF = TimeSpan.Parse(datos[5]);
+            
+            Reto reto = db.Retos.Find(eq1, eq2, cancha, fecha, horaI, horaF);
+            reto.ganador = ganador;
+            reto.resultado = marcador;
+            db.SaveChanges();
+            return RedirectToAction("AdmCanchas", "Canchas");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -196,7 +196,7 @@ namespace WebProyecto.Controllers
             return PartialView("~/Views/Horarios/DatosCancha.cshtml", horarios.ToList());
 
         }
-
+        //Obtiene la dirección de la cancha seleccionada
         [HttpPost]
         public ActionResult getDireccion(string nombre)
         {
@@ -208,7 +208,12 @@ namespace WebProyecto.Controllers
             return Json(direccion);
 
         }
-
+        // GET: Canchas/AdmCanchas
+        public ActionResult AdmCanchas()
+        {
+            Session["reto"] = "";
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -2,9 +2,12 @@
 <html>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Retando a Toda Costa Rica</title>
+    
+    @Styles.Render("~/Content/jqueryui")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -38,13 +41,13 @@
                         {
                             if (rol.Equals("administrador"))
                             {
-                                <li>@Html.ActionLink("Administrar", "", "")</li>
+                                <li>@Html.ActionLink("Administrar", "Administrar", "Home")</li>
                             }
                             else
                             {
                                 if (rol.Equals("dueño"))
                                 {
-                                    <li>@Html.ActionLink("Mi cancha", "", "")</li>
+                                    <li>@Html.ActionLink("Mi cancha", "AdmCanchas", "Canchas")</li>
                                 }
                             }
                         }
@@ -77,6 +80,8 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
+   
 </body>
 </html>

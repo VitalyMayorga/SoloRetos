@@ -114,7 +114,19 @@ namespace WebProyecto.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        //Obtiene el telefono de los equipos
+        [HttpPost]
+        public ActionResult datosEquipos(int equipo1)
+        {
+            var tel = (from e in db.Usuarios
+                          where e.equipo_id == equipo1 
+                          select e).Select(model => model.telefono);
 
+
+            SelectList datos = new SelectList(tel.ToList(), "telefono");
+            return Json(datos.ToList());
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

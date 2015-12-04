@@ -22,6 +22,7 @@
     padding-left: 0px;
     padding-right: 0px;
     height:650px;
+    
 }
 
 ul.listar {
@@ -46,6 +47,21 @@ ul.listar {
 
 }
 
+.ladoIzq2 {
+    float:left;
+    width: 50%;
+    border-right: 5px solid #2A7321;
+    height: 100%;
+
+}
+
+.ladoDer2 {
+    float:left;
+    margin-left:2%;
+    height: 100%;
+    width: 50%-5px;
+
+}
 .tituloVerde {
     color: #3AB32B;
     margin-left: 2%;
@@ -68,4 +84,8 @@ ul.listar {
     margin-left: 25%;
     margin-top: 5%;
     margin-bottom: 5%;
+}
+
+div.ui-datepicker {
+    font-size: 12px;
 }

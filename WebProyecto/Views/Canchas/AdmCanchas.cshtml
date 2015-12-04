@@ -1,0 +1,180 @@
+﻿@model WebProyecto.Models.Cancha
+@{
+    ViewBag.Title = "Canchas Afiliadas";
+}
+<head>
+    <script type="text/javascript">
+        $(function() {
+            $("#datePicker").datepicker();
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        function onChangeCalender() {
+            $("#retos").load("@Url.Action("cargarRetos", "Retos")",
+            { fecha: $('#datePicker').val() });
+        }
+    
+    </script>
+
+    
+    
+    
+    @*, id_cancha, fecha, horaInicio, horaFinal*@
+    <script type="text/javascript">
+        function cargarReto(id_equipo1, id_equipo2, id_cancha, fecha, horaInicio, horaFinal) {
+            
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("datosReto", "Retos")",
+                data: {
+                    equipo1: id_equipo1,
+                    equipo2: id_equipo2,
+                    cancha: id_cancha,
+                    fech: fecha,
+                    horaI: horaInicio,
+                    horaF: horaFinal
+                },
+                 success: function (data) {
+                     var markup = "<option value=0>" + "Empate" + "</option>";
+                     markup += "<option value=" + data[0].Value + ">" + data[0].Text + "</option>";
+                     $("#etiqueta1").text(data[0].Text);
+                     markup += "<option value=" + data[1].Value + ">" + data[1].Text + "</option>";
+                     $("#etiqueta2").text(data[1].Text);
+                    $("#equipos").html(markup).show();
+                    
+                }
+            });
+            telefonos(id_equipo1, id_equipo2);
+            $("#tituloCancha").show();
+            $("#Equipo1").show();
+            $("#Equipo2").show();
+            $("#Ganador").show();
+            $("#Marcador").show();
+            $("#botones").show();
+            
+        }
+
+        function telefonos(id_equipo1, id_equipo2) {
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("datosEquipos", "Equipos")",
+                data: {
+                equipo1: id_equipo1,
+                
+                
+                },
+                success: function (data) {
+                    var telefonos = "";
+                for (var x = 0; x < data.length; x++) {
+                    telefonos += data[x].Text + " ";
+                }
+                $("#campo1").val(telefonos);
+                
+                    
+            }
+            });
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("datosEquipos", "Equipos")",
+                data: {
+                  equipo1: id_equipo2,
+                
+                },
+            success: function (data) {
+                var telefonos = "";
+                for (var x = 0; x < data.length; x++) {
+                    telefonos += data[x].Text + " ";
+                }
+                $("#campo2").val(telefonos);
+                
+                    
+            }
+        });
+        }
+        
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Eliminar").click(function (event) {
+                $.ajax({
+                type:"POST",
+                url: "@Url.Action("borrarReto", "Retos")",
+                data: {
+                    valor: 1,
+
+                },
+                success: function (data) {
+                    alert("Reto borrado con éxito");
+                    var url = $("#RedirectTo").val();
+                    location.href = url;
+                }
+            });
+         });
+     });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Confirmar").click(function (event) {
+                $.ajax({
+                type:"POST",
+                url: "@Url.Action("editarReto", "Retos")",
+                data: {
+                    ganador: $("#equipos option:selected").text(),
+                    marcador: $("#campo3").val()
+
+                },
+                success: function (data) {
+                    alert("Reto modificado con éxito");
+                    var url = $("#RedirectTo").val();
+                    location.href = url;
+                }
+            });
+         });
+     });
+    </script>
+</head>
+@Html.Hidden("RedirectTo", Url.Action("AdmCanchas", "Canchas"))
+<div class="ladoIzq2">
+    <h3 class="tituloVerde">Administración</h3>
+    <div class="filtros">
+        <label>Fecha</label>
+        <div id="datePicker" onchange="onChangeCalender();"></div>  
+    </div>
+    <div id ="retos"class="filtros"></div>
+
+</div>
+<div class="ladoDer2">
+    <h3 class="tituloVerde" id="tituloCancha" hidden>Contáctos de los equipos</h3>
+    <div class="form-group" id="Equipo1" hidden>
+        <label id = "etiqueta1"></label>
+        @Html.Editor("campo1", new { htmlAttributes = new { id = "campo1", @class = "form-control" } })
+        
+
+    </div>
+    <div class="form-group" id="Equipo2" hidden>
+        <label id="etiqueta2"></label>
+        @Html.Editor("campo2", new { htmlAttributes = new { id = "campo2", @class = "form-control" } })
+       
+    </div>
+    <h3 class="tituloVerde" id="tituloCancha" hidden>Información del Reto</h3>
+    <div class="form-group" id="Ganador" hidden>
+        <label id="etiqueta3">Ganador</label>
+        <select id="equipos" class="form-control"></select>
+        
+    </div>
+    <div class="form-group" id="Marcador" hidden>
+        <label>Resultado</label>
+        @Html.Editor("campo3", new { htmlAttributes = new { id = "campo3", @class = "form-control" } })
+       
+
+    </div>
+    <div class="form-group" id="botones" hidden>
+        <input type="button" id="Eliminar"  value="Eliminar" class="btn btn-default" />
+        <input type="submit" id="Confirmar" value="Confirmar Reto" class="btn btn-default" />
+
+    </div>
+</div>
+

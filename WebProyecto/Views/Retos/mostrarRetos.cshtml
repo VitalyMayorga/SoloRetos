@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebProyecto.Models.Reto>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Fecha")
+        </th>
+        <th>
+            @Html.DisplayName("Hora")
+        </th>
+        <th>
+            @Html.DisplayName("Equipo1")
+        </th>
+        <th>
+            @Html.DisplayName("Equipo2")
+        </th>
+        <th>
+            @Html.DisplayName("Marcador")
+        </th>
+        <th>
+            @Html.DisplayName("Ganador")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr data-item-id="@item.id_equipo1,@item.id_equipo2,@item.id_cancha,@item.fecha@item.horaInicio,@item.horaFinal" class="editar">
+            <td>
+                @item.fecha.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipos.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipos1.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resultado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ganador)
+            </td>
+            <td>
+                @*@Html.ActionLink("Editar", "Edit", "Retos", new { @id=item.id_equipo1,@id2=item.id_equipo2},null)*@
+                <a href="#" onclick="cargarReto(@item.id_equipo1,@item.id_equipo2,@item.id_cancha,'@item.fecha.ToString("MM/dd/yyyy")','@item.horaInicio','@item.horaFinal');">Editar</a>
+                @*,@item.id_cancha,@item.fecha,@item.horaInicio,@item.horaFinal*@                
+            </td>
+        </tr>
+    }
+
+</table>
