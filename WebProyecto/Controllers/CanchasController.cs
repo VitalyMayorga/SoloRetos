@@ -54,7 +54,7 @@ namespace WebProyecto.Controllers
             {
                 db.Canchas.Add(cancha);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Administrar","Home");
             }
 
             ViewBag.admCancha = new SelectList(db.Usuarios, "id", "nombre", cancha.admCancha);
@@ -88,7 +88,7 @@ namespace WebProyecto.Controllers
             {
                 db.Entry(cancha).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Administrar","Home");
             }
             ViewBag.admCancha = new SelectList(db.Usuarios, "id", "nombre", cancha.admCancha);
             return View(cancha);
@@ -117,7 +117,7 @@ namespace WebProyecto.Controllers
             Cancha cancha = db.Canchas.Find(id);
             db.Canchas.Remove(cancha);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Administrar","Home");
         }
 
         // GET: Canchas/Lista

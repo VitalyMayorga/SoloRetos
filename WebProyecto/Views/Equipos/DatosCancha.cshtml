@@ -1,0 +1,28 @@
+﻿@model IEnumerable<WebProyecto.Models.Equipos>
+
+
+<div id="container">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Equipo")
+            </th>
+            <th>
+                @Html.DisplayName("Partidos ganados")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.victorias)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>  

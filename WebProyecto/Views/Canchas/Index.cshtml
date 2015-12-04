@@ -4,27 +4,27 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h4 class="tituloVerde">Administración de Canchas</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear una nueva cancha", "Create", "Canchas", null, null)
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayName("Nombre")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.cantCanchas)
+            @Html.DisplayName("Número de canchas")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.telefono)
+            @Html.DisplayName("Teléfono")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.provincia)
+            @Html.DisplayName("Provincia")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.canton)
+            @Html.DisplayName("Canton")
         </th>
         <th></th>
     </tr>
@@ -47,9 +47,9 @@
             @Html.DisplayFor(modelItem => item.canton)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "Canchas", new { id=item.id },null) |
-            @Html.ActionLink("Details", "Details", "Canchas", new { id=item.id },null) |
-            @Html.ActionLink("Delete", "Delete", "Canchas", new { id=item.id },null)
+            @Html.ActionLink("Editar", "Edit", "Canchas", new { id=item.id },null) |
+            @Html.ActionLink("Detalles", "Details", "Canchas", new { id=item.id },null) |
+            @Html.ActionLink("Eliminar", "Delete", "Canchas", new { id=item.id },null)
         </td>
     </tr>
 }

@@ -1,0 +1,92 @@
+﻿@model WebProyecto.Models.Cancha
+@{
+    ViewBag.Title = "Ranking de equipos";
+}
+<head>
+    <script type="text/javascript">
+    $(function () {
+        $('#listProvincia').change(function () {
+            var datoP = $("#listProvincia option:selected").text();
+            var datoC = $("#listCanton option:selected").text();
+
+             $.ajax({
+                type:"POST",
+                url:"@Url.Action("llenarLista", "Canchas")",
+                data: {
+                    provincia: datoP,
+                    canton: datoC
+
+                },
+                success: function (data) {
+                    var markup = "";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#nombre").html(markup).show();
+                }
+            });
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#listCanton').change(function () {
+            var datoP = $("#listProvincia option:selected").text();
+            var datoC = $("#listCanton option:selected").text();
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("llenarLista", "Canchas")",
+                data: {
+                    provincia: datoP,
+                    canton: datoC
+                },
+                success: function (data) {
+                    var markup = "";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#nombre").html(markup).show();
+                }
+            });
+        });
+    });
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#Buscar").click(function () {
+                var nombreC = $("#nombre option:selected").text();
+                $("#partial").load("@Url.Action("mostrarEquipos", "Equipos")",
+                { nombre: nombreC });
+            });
+        });
+    </script>
+</head>
+
+<div class="ladoIzq">
+    <h3 class="tituloVerde">Filtros de búsqueda</h3>
+    <div class="filtros">
+        <label>Provincia</label>
+        @Html.DropDownList("provincia", null, "--Elija una provincia--", htmlAttributes: new { id = "listProvincia", @class = "form-control" })
+    </div>
+    <div class="filtros">
+        <label>Cantón</label>
+        @Html.DropDownList("canton", null, "--Elija un cantón--", htmlAttributes: new { id = "listCanton", @class = "form-control" })
+
+    </div>
+    <div class="filtros">
+        <label>Cancha</label>
+        @Html.DropDownList("nombre", null, htmlAttributes: new { @id = "nombre", @class = "form-control" })
+
+
+    </div>
+    <div class="filtros">
+        <input type="button" id="Buscar" value="Buscar" class="btn btn-default" />
+    </div>
+</div>
+<div class="ladoDer">
+    <h3>Top 10 de equipos del mes</h3>
+    <div id="partial"></div>
+</div>
+
