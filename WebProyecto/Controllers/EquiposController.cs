@@ -205,6 +205,7 @@ namespace WebProyecto.Controllers
         {
             DateTime fecha1 = new DateTime(2015,11,30);
             DateTime fecha2 = new DateTime(2016, 1, 1);
+            List<Equipos> model = new List<Equipos>();
             var datos = (from c in db.Canchas
                          where c.nombre == nombre
                          select c).Single();
@@ -220,11 +221,20 @@ namespace WebProyecto.Controllers
                                     nombre = resultSet.Key.nombre,
                                     victorias = resultSet.Count()
                                 };
+            foreach(var item in equipos) //retrieve each item and assign to model
+            {
+                model.Add(new Equipos()
+                {
+                    nombre = item.nombre,
+                    victorias = item.victorias,
+                    
+                });
+            }
             //var ranking = equipos.GroupBy(e => e.nombre)
             //             .OrderBy(g => g.Count())
             //             .SelectMany(g => g)
             //             .ToList();
-            return PartialView("~/Views/Equipos/DatosCancha.cshtml", equipos.ToList());
+            return PartialView("~/Views/Equipos/DatosCancha.cshtml", model);
         }
     }
 }

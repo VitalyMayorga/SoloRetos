@@ -431,6 +431,8 @@
     <Content Include="Views\Home\Administrar.cshtml" />
     <Content Include="Views\Canchas\AdmCanchas.cshtml" />
     <Content Include="Views\Retos\mostrarRetos.cshtml" />
+    <Content Include="Views\Equipos\DatosCancha.cshtml" />
+    <Content Include="Views\Equipos\Lista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
