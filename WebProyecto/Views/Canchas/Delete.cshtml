@@ -1,18 +1,17 @@
 ﻿@model WebProyecto.Models.Cancha
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Borrar cancha";
 }
 
-<h2>Delete</h2>
+<h3 class="tituloVerde">Borrar una cancha existente</h3>
+<h4 class="texto">¿Está seguro que desea borrar ésta cancha?</h4>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Cancha</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayName(" Nombre")
         </dt>
 
         <dd>
@@ -20,31 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.direccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cantCanchas)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cantCanchas)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
+            @Html.DisplayName(" Provincia")
         </dt>
 
         <dd>
@@ -52,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.canton)
+            @Html.DisplayName("Cantón")
         </dt>
 
         <dd>
@@ -60,7 +35,31 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
+            @Html.DisplayName("Dirección")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Número de canchas")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantCanchas)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Teléfono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Administrador")
         </dt>
 
         <dd>
@@ -73,8 +72,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar a administración", "Administrar", "Home")
         </div>
     }
 </div>

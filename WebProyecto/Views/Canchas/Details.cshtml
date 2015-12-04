@@ -1,17 +1,16 @@
 ﻿@model WebProyecto.Models.Cancha
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h3 class="tituloVerde">Detalles de una cancha existente</h3>
 
 <div>
-    <h4>Cancha</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayName(" Nombre")
         </dt>
 
         <dd>
@@ -19,31 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.direccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cantCanchas)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cantCanchas)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.provincia)
+            @Html.DisplayName(" Provincia")
         </dt>
 
         <dd>
@@ -51,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.canton)
+            @Html.DisplayName("Cantón")
         </dt>
 
         <dd>
@@ -59,7 +34,31 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
+            @Html.DisplayName("Dirección")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Número de canchas")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantCanchas)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Teléfono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Administrador")
         </dt>
 
         <dd>
@@ -69,6 +68,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", "Canchas", new { id = Model.id }, null) | 
+    @Html.ActionLink("Regresar a administración", "Administrar", "Home")
 </p>

@@ -123,5 +123,96 @@ namespace WebProyecto.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Lista()
+        {
+            Cancha cancha = new Cancha();
+            var prov = (from c in db.Canchas
+                        select c).Select(model => model.provincia).Distinct();
+            ViewBag.provincia = new SelectList(prov.ToList(), "provincia");
+            var canton = (from c in db.Canchas
+                          select c).Select(model => model.canton).Distinct();
+            ViewBag.canton = new SelectList(canton.ToList(), "canton");
+            var nombre = (from c in db.Canchas
+                          select c).Select(model => model.nombre);
+            ViewBag.nombre = new SelectList(nombre.ToList(), "nombre");
+            return View(cancha);
+        }
+        //Llenar la lista de canchas, dependiendo de los primeros filtros seleccionados
+        [HttpPost]
+        public ActionResult llenarLista(string provincia, string canton)
+        {
+
+            if (provincia.Equals("--Elija una provincia--", StringComparison.Ordinal))
+            {
+                if (canton.Equals("--Elija un cantón--", StringComparison.Ordinal))
+                {
+                    var nombre = (from c in db.Canchas
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+                }
+                else
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.canton == canton
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+
+                }
+
+            }
+            else
+            {
+                if (canton.Equals("--Elija un cantón--", StringComparison.Ordinal))
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.provincia == provincia
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+                }
+                else
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.provincia == provincia && c.canton == canton
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+
+                }
+
+            }
+
+        }
+
+        //muestra los datos de la cancha seleccionada
+        [HttpPost]
+        public ActionResult mostrarEquipos(string nombre)
+        {
+            DateTime fecha1 = new DateTime(2015,11,30);
+            DateTime fecha2 = new DateTime(2016, 1, 1);
+            var datos = (from c in db.Canchas
+                         where c.nombre == nombre
+                         select c).Single();
+            var equipos =   from e in db.Equipos
+                            join r in db.Retos
+                            on e.nombre equals r.ganador
+                            where (r.id_cancha == datos.id && r.fecha > fecha1 && r.fecha < fecha2)
+                            group new {e} by new { e.nombre }
+                                into resultSet
+                                orderby resultSet.Count()
+                                select new
+                                {
+                                    nombre = resultSet.Key.nombre,
+                                    victorias = resultSet.Count()
+                                };
+            //var ranking = equipos.GroupBy(e => e.nombre)
+            //             .OrderBy(g => g.Count())
+            //             .SelectMany(g => g)
+            //             .ToList();
+            return PartialView("~/Views/Equipos/DatosCancha.cshtml", equipos.ToList());
+        }
     }
 }
