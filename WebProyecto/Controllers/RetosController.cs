@@ -206,8 +206,12 @@ namespace WebProyecto.Controllers
                          orderby h.fecha ascending
                          select h;
 
-
-
+            var datos = (from e in db.Equipos
+                         where e.id == idEquipo
+                         select e).Single();
+            ViewBag.victorias = datos.victorias;
+            ViewBag.empates = datos.empates;
+            ViewBag.derrotas = datos.derrotas;
             return View(retos);
         }
 
