@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebProyecto.Models.Reto>
+@{
+    ViewBag.Title = "Mi Equipo";
+}
+<head>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+      $('#Buscar').click(function (e)
+      {
+          location.href = '@Url.Content("~/Retos/BuscarRetos")';
+      });
+
+    });
+    </script>
+</head>
+<h2>@ViewBag.Equipo</h2>
+
+
+<div class="Centrado">
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Fecha")
+        </th>
+        <th>
+            @Html.DisplayName("Hora")
+        </th>
+        <th>
+            @Html.DisplayName("Lugar")
+        </th>
+        <th>
+            @Html.DisplayName("Contrincante")
+        </th>
+        <th>
+            @Html.DisplayName("Marcador")
+        </th>
+        <th>
+            @Html.DisplayName("Ganador")
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.fecha.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cancha.nombre)
+            </td>
+            
+            <td>
+                @if (item.Equipos1.nombre != ViewBag.Equipo)
+                {
+                    @Html.DisplayFor(modelItem => item.Equipos1.nombre)
+                }
+                else {
+                    if(item.Equipos.nombre!=ViewBag.Equipo){
+                        @Html.DisplayFor(modelItem => item.Equipos.nombre)
+                    }
+                    else
+                    {
+                        @Html.Display("----");
+                    }
+
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.resultado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ganador)
+            </td>
+            
+        </tr>
+    }
+
+</table>
+    <input type="button" id="Buscar" value="Buscar Reto" class="btn btn-default" />
+
+    </div>

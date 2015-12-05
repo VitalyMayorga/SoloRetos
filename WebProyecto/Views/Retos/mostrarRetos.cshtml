@@ -26,7 +26,7 @@
 
     @foreach (var item in Model)
     {
-        <tr data-item-id="@item.id_equipo1,@item.id_equipo2,@item.id_cancha,@item.fecha@item.horaInicio,@item.horaFinal" class="editar">
+        <tr>
             <td>
                 @item.fecha.ToString("dd/MM/yyyy")
             </td>
@@ -46,9 +46,8 @@
                 @Html.DisplayFor(modelItem => item.ganador)
             </td>
             <td>
-                @*@Html.ActionLink("Editar", "Edit", "Retos", new { @id=item.id_equipo1,@id2=item.id_equipo2},null)*@
                 <a href="#" onclick="cargarReto(@item.id_equipo1,@item.id_equipo2,@item.id_cancha,'@item.fecha.ToString("MM/dd/yyyy")','@item.horaInicio','@item.horaFinal');">Editar</a>
-                @*,@item.id_cancha,@item.fecha,@item.horaInicio,@item.horaFinal*@                
+                        
             </td>
         </tr>
     }

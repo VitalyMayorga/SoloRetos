@@ -212,6 +212,13 @@ namespace WebProyecto.Controllers
                                   select q).Single();
                     Session["idCancha"] = cancha.id;
                 }
+                if (rol.Equals("jugador"))
+                {
+                    var equipo = (from q in db.Usuarios
+                                  where q.id == usuario.id
+                                  select q).Single();
+                    Session["idEquipo"] = equipo.equipo_id;
+                }
                 return RedirectToAction("Index", "Home");
             }
             catch(Exception e) {

@@ -137,7 +137,7 @@ namespace WebProyecto.Controllers
             int idCancha = Convert.ToInt32(Session["idCancha"]);
             
             var retos = from h in db.Retos
-                           where h.id_cancha == idCancha && h.fecha == fechita
+                           where h.id_cancha == idCancha && h.fecha == fechita && h.id_equipo1 != h.id_equipo2
                            select h;
 
 
@@ -190,7 +190,167 @@ namespace WebProyecto.Controllers
             reto.ganador = ganador;
             reto.resultado = marcador;
             db.SaveChanges();
-            return RedirectToAction("AdmCanchas", "Canchas");
+            return RedirectToAction("BuscarRetos", "Canchas");
+        }
+
+        // GET: Retos/MiEquipo/5
+        public ActionResult MiEquipo()
+        {
+            int idEquipo = Convert.ToInt32(Session["idEquipo"]);
+            var nombreE = (from e in db.Equipos
+                           where e.id == idEquipo
+                           select e).Select(model => model.nombre).Single();
+            ViewBag.Equipo = nombreE;
+            var retos = from h in db.Retos
+                         where h.id_equipo1 == idEquipo || h.id_equipo2 == idEquipo
+                         orderby h.fecha ascending
+                         select h;
+
+
+
+            return View(retos);
+        }
+
+        // GET: Retos/BuscarRetos/5
+        public ActionResult BuscarRetos()
+        {
+            var prov = (from c in db.Canchas
+                        select c).Select(model => model.provincia).Distinct();
+            ViewBag.provincia = new SelectList(prov.ToList(), "provincia");
+            var canton = (from c in db.Canchas
+                          select c).Select(model => model.canton).Distinct();
+            ViewBag.canton = new SelectList(canton.ToList(), "canton");
+            var nombre = (from c in db.Canchas
+                          select c).Select(model => model.nombre);
+            ViewBag.nombre = new SelectList(nombre.ToList(), "nombre");
+
+            return View();
+        }
+        //Llenar la lista de canchas, dependiendo de los primeros filtros seleccionados
+        [HttpPost]
+        public ActionResult llenarLista(string provincia, string canton)
+        {
+
+            if (provincia.Equals("--Elija una provincia--", StringComparison.Ordinal))
+            {
+                if (canton.Equals("--Elija un cantón--", StringComparison.Ordinal))
+                {
+                    var nombre = (from c in db.Canchas
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+                }
+                else
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.canton == canton
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+
+                }
+
+            }
+            else
+            {
+                if (canton.Equals("--Elija un cantón--", StringComparison.Ordinal))
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.provincia == provincia
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+                }
+                else
+                {
+                    var nombre = (from c in db.Canchas
+                                  where c.provincia == provincia && c.canton == canton
+                                  select c).Select(model => model.nombre);
+                    SelectList canchas = new SelectList(nombre.ToList(), "nombre");
+                    return Json(canchas);
+
+                }
+
+            }
+
+        }
+        //carga los retos de la Cancha seleccionada en la fecha seleccionada
+        [HttpPost]
+        public ActionResult cargarRetosCancha(string fecha,string cancha)
+        {
+            DateTime fechita = DateTime.Parse(fecha);
+            int idEquipo = Convert.ToInt32(Session["idEquipo"]);
+            var idCancha = (from c in db.Canchas
+                           where c.nombre == cancha
+                           select c).Select(model => model.id).Single();
+
+            var retos = (from h in db.Retos
+                        where h.id_cancha == idCancha && h.fecha == fechita && h.id_equipo1 != idEquipo && h.id_equipo2 !=idEquipo && h.id_equipo1== h.id_equipo2
+                        orderby h.fecha ascending
+                         select h);
+
+
+
+            return PartialView("~/Views/Retos/retosDisponibles.cshtml", retos.ToList());
+
+        }
+        //Acepta un reto publicado
+        [HttpPost]
+        public ActionResult aceptarReto(int equipo1, int cancha, string fech, string horaI, string horaF)
+        {
+            DateTime fecha = DateTime.ParseExact(fech, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            TimeSpan horaInicio = TimeSpan.Parse(horaI);
+            TimeSpan horaFinal = TimeSpan.Parse(horaF);
+            int idEquipo = Convert.ToInt32(Session["idEquipo"]);
+            Reto reto = db.Retos.Find(equipo1, equipo1, cancha, fecha, horaInicio, horaFinal);
+            Reto reto2 = new Reto();
+            reto2.id_equipo1 = reto.id_equipo1;
+            reto2.id_equipo2 = idEquipo;
+            reto2.id_cancha = reto.id_cancha;
+            reto2.fecha = reto.fecha;
+            reto2.horaInicio = reto.horaInicio;
+            reto2.horaFinal = reto.horaFinal;
+            reto2.ganador = reto.ganador;
+            reto2.resultado = reto.resultado;
+            reto2.precio = reto.precio;
+            db.Retos.Add(reto2);
+            db.SaveChanges();
+            db.Retos.Remove(reto);
+            db.SaveChanges();
+            
+            return RedirectToAction("BuscarRetos", "Retos");
+
+        }
+
+        //Publicar un nuevo reto
+        [HttpPost]
+        public ActionResult publicarReto(string cancha, string horaInicio, string horaFinal, string fecha)
+        {
+            DateTime fech = DateTime.ParseExact(fecha, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            TimeSpan horaI = TimeSpan.Parse(horaInicio);
+            TimeSpan horaF = TimeSpan.Parse(horaFinal);
+            int idEquipo = Convert.ToInt32(Session["idEquipo"]);
+            var idCancha = (from c in db.Canchas
+                            where c.nombre == cancha
+                            select c).Select(model => model.id).Single();
+
+            var precio = (from h in db.Horarios
+                          where h.horaInicio <= horaI && horaF <= h.horaFinal
+                          select h).Select(model => model.precio).Single();
+            Reto reto = new Reto();
+            reto.id_equipo1 = idEquipo;
+            reto.id_equipo2 = idEquipo;
+            reto.id_cancha = idCancha;
+            reto.fecha = fech;
+            reto.horaInicio = horaI;
+            reto.horaFinal = horaF;
+            reto.ganador = "Pendiente";
+            reto.resultado = "N/A";
+            reto.precio = precio;
+            db.Retos.Add(reto);
+            db.SaveChanges();
+            return RedirectToAction("BuscarRetos", "Retos");
+
         }
         protected override void Dispose(bool disposing)
         {

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebProyecto.Models.Reto>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Fecha")
+        </th>
+        <th>
+            @Html.DisplayName("Hora Inicio")
+        </th>
+        <th>
+            @Html.DisplayName("Hora Final")
+        </th>
+        <th>
+            @Html.DisplayName("Contrincante")
+        </th>
+        <th>
+           
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.fecha.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horaFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipos.nombre)
+            </td>
+            <td>
+                <a href="#" onclick="aceptarReto(@item.id_equipo1,@item.id_cancha,'@item.fecha.ToString("MM/dd/yyyy")','@item.horaInicio','@item.horaFinal');">Aceptar Reto</a>
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -433,6 +433,9 @@
     <Content Include="Views\Retos\mostrarRetos.cshtml" />
     <Content Include="Views\Equipos\DatosCancha.cshtml" />
     <Content Include="Views\Equipos\Lista.cshtml" />
+    <Content Include="Views\Retos\MiEquipo.cshtml" />
+    <Content Include="Views\Retos\BuscarRetos.cshtml" />
+    <Content Include="Views\Retos\retosDisponibles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

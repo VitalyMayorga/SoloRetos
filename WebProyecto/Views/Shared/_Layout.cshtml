@@ -27,7 +27,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
                     <li>@Html.ActionLink("Canchas afiliadas", "Lista", "Canchas")</li>
-                    <li>@Html.ActionLink("Ranking de equipos", "Ranking", "Equipos")</li>
+                    <li>@Html.ActionLink("Ranking de equipos", "Lista", "Equipos")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contáctenos", "Contact", "Home")</li>
                     @if (Session["rol"] != null)
@@ -35,7 +35,7 @@
                         string rol = Session["rol"] + "";
                         if (rol.Equals("jugador"))
                         {
-                            <li>@Html.ActionLink("Buscar reto", "", "")</li>
+                            <li>@Html.ActionLink("Mi equipo", "MiEquipo", "Retos")</li>
                         }
                         else
                         {

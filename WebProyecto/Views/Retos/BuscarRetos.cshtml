@@ -1,0 +1,191 @@
+﻿@model WebProyecto.Models.Cancha
+@{
+    ViewBag.Title = "Buscar Retos";
+}
+<head>
+    <script type="text/javascript">
+        $(function() {
+            $("#datePicker").datepicker();
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        function onChangeCalender() {
+            $("#retos").load("@Url.Action("cargarRetosCancha", "Retos")",
+            { fecha: $('#datePicker').val(), cancha:$("#nombre").val() });
+        }
+
+    </script>
+
+
+
+
+    @*, id_cancha, fecha, horaInicio, horaFinal*@
+    <script type="text/javascript">
+        function aceptarReto(id_equipo1, id_cancha, fecha, horaInicio, horaFinal) {
+
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("aceptarReto", "Retos")",
+                data: {
+                    equipo1: id_equipo1,
+                    cancha: id_cancha,
+                    fech: fecha,
+                    horaI: horaInicio,
+                    horaF: horaFinal
+                },
+                 success: function (data) {
+                     alert("Reto Aceptado con éxito");
+                     var url = $("#RedirectTo").val();
+                     location.href = url;
+
+                }
+            });
+            
+
+        }
+
+        
+    </script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Retar").click(function (event) {
+                $.ajax({
+                type:"POST",
+                url: "@Url.Action("publicarReto", "Retos")",
+                data: {
+                    cancha: $("#nombre option:selected").text(),
+                    horaInicio: $("#hInicio").val(),
+                    horaFinal: $("#hFinal").val(),
+                    fecha:$("#datePicker").val()
+
+                },
+                success: function (data) {
+                    alert("Reto publicado con exito con éxito");
+                    var url = $("#RedirectTo").val();
+                    location.href = url;
+                }
+            });
+         });
+     });
+    </script>
+    <script type="text/javascript">
+    $(function () {
+        $('#listProvincia').change(function () {
+            var datoP = $("#listProvincia option:selected").text();
+            var datoC = $("#listCanton option:selected").text();
+
+             $.ajax({
+                type:"POST",
+                url:"@Url.Action("llenarLista", "Canchas")",
+                data: {
+                    provincia: datoP,
+                    canton: datoC
+
+                },
+                success: function (data) {
+                    var markup = "";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#nombre").html(markup).show();
+                }
+            });
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#listCanton').change(function () {
+            var datoP = $("#listProvincia option:selected").text();
+            var datoC = $("#listCanton option:selected").text();
+            $.ajax({
+                type:"POST",
+                url:"@Url.Action("llenarLista", "Canchas")",
+                data: {
+                    provincia: datoP,
+                    canton: datoC
+                },
+                success: function (data) {
+                    var markup = "";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#nombre").html(markup).show();
+                }
+            });
+        });
+    });
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#BuscarR").click(function () {
+                var nombreC = $("#nombre option:selected").text();
+                @*$("#partial").load("@Url.Action("cargarRetosCancha", "Retos")",
+                { fecha: $('#datePicker').val(), cancha: $("#nombre").val() });*@
+                $("#ladoDer2").show();
+
+            });
+           
+            
+        });
+    </script>
+</head>
+@Html.Hidden("RedirectTo", Url.Action("MiEquipo", "Retos"))
+<div class="ladoIzq2">
+    <h3 class="tituloVerde">Filtros de búsqueda</h3>
+    <div class="filtros">
+        <label>Fecha</label>
+        <div id="datePicker" onchange="onChangeCalender();"></div>
+    </div>
+    
+    <div class="filtros">
+        <label>Provincia</label>
+        @Html.DropDownList("provincia", null, "--Elija una provincia--", htmlAttributes: new { id = "listProvincia", @class = "form-control" })
+    </div>
+    <div class="filtros">
+        <label>Cantón</label>
+        @Html.DropDownList("canton", null, "--Elija un cantón--", htmlAttributes: new { id = "listCanton", @class = "form-control" })
+
+    </div>
+    <div class="filtros">
+        <label>Cancha</label>
+        @Html.DropDownList("nombre", null, htmlAttributes: new { @id = "nombre", @class = "form-control" })
+
+
+    </div>
+    <div class="filtros">
+        <input type="button" id="BuscarR" value="Buscar" class="btn btn-default" />
+    </div>
+    
+
+</div>
+<div class="ladoDer2" id="ladoDer2" hidden>
+    <h3 class="tituloVerde" id="titulo1" >Retos Disponibles</h3>
+    <div id="retos" class="filtros" ></div>
+       
+    <div class="parte_retar">
+        <h3 class="tituloVerde" id="titulo2" >Publicar un reto</h3>
+        <div class="form-group" id="HoraI" >
+            <label>Hora Inicio</label>
+            <input type="time" id="hInicio" class="form-control" />
+
+        </div>
+        <div class="form-group" id="HoraF" >
+            <label>Hora Final</label>
+            <input type="time" id="hFinal" class="form-control" />
+
+        </div>
+        <div class="form-group" id="botones" >
+            <input type="submit" id="Retar" value="Publicar" class="btn btn-default" />
+
+        </div>
+    </div>
+    
+    
+</div>
+
