@@ -1,17 +1,16 @@
 ﻿@model WebProyecto.Models.Equipos
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details de equipo";
 }
 
-<h2>Details</h2>
+<h3 class="tituloVerde">Detalles de un equipo existente</h3>
 
 <div>
-    <h4>Equipos</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayName(" Nombre")
         </dt>
 
         <dd>
@@ -19,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.codAcceso)
+            @Html.DisplayName("Código de acceso")
         </dt>
 
         <dd>
@@ -28,7 +27,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+<p class="margenIzq">
+    @Html.ActionLink("Editar", "Edit", "Equipos", new { id = Model.id }, null) |
+    @Html.ActionLink("Regresar a administración", "Administrar", "Home")
 </p>

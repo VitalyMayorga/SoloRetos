@@ -89,3 +89,24 @@ ul.listar {
 div.ui-datepicker {
     font-size: 12px;
 }
+
+.filtros {
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+.datosCancha{
+    margin-top: 10%;
+    margin-bottom: 20%;
+}
+
+.margenIzq{
+    margin-left: 5%;
+}
+
+.subtituloVerde {
+    color: #3AB32B;
+    margin-top: 5%;
+    margin-left: 0%;
+}

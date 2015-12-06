@@ -1,17 +1,24 @@
 ﻿@model WebProyecto.Models.Usuario
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de usuario";
 }
 
-<h2>Details</h2>
+<h3 class="tituloVerde">Detalles de un usuario existente</h3>
 
 <div>
-    <h4>Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayName(" Rol")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rol)
+        </dd>
+
+        <dt>
+            @Html.DisplayName(" Nombre")
         </dt>
 
         <dd>
@@ -19,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.apellido)
+            @Html.DisplayName(" Apellido")
         </dt>
 
         <dd>
@@ -27,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.telefono)
+            @Html.DisplayName("Teléfono")
         </dt>
 
         <dd>
@@ -35,7 +42,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.correo)
+            @Html.DisplayName("Correo electrónico")
         </dt>
 
         <dd>
@@ -43,15 +50,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.contraseña)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.contraseña)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Equipos.nombre)
+            @Html.DisplayName("Equipo")
         </dt>
 
         <dd>
@@ -60,7 +59,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+<p class="margenIzq">
+    @Html.ActionLink("Editar", "Edit", "Usuarios", new { id = Model.id }, null) |
+    @Html.ActionLink("Regresar a administración", "Administrar", "Home")
 </p>

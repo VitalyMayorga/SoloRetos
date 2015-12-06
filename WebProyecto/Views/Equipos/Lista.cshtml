@@ -57,6 +57,9 @@
         $(function () {
             $("#Buscar").click(function () {
                 var nombreC = $("#nombre option:selected").text();
+                $("#tituloCancha").text(nombreC);
+                $("#tituloCancha").show();
+                $("#labelRanking > label").show();
                 $("#partial").load("@Url.Action("mostrarEquipos", "Equipos")",
                 { nombre: nombreC });
             });
@@ -86,7 +89,11 @@
     </div>
 </div>
 <div class="ladoDer">
-    <h3>Top 10 de equipos del mes</h3>
-    <div id="partial"></div>
+    <h3 class="tituloVerde" id="tituloCancha"></h3>
+    <div class="datosCancha" id="labelRanking">
+        <label hidden>Top 10 de equipos del mes</label>
+        <div id="partial"></div>
+    </div>
+    
 </div>
 

@@ -4,8 +4,6 @@
     ViewBag.Title = "Registrarse";
 }
 
-<h2>Registro de nuevos usuarios</h2>
-
 <head>
     <script type="text/javascript">
         window.onload = function() {
@@ -60,8 +58,16 @@
                                 data: {
                                     codAcceso:$("#campo1").val()
                                 },
-                                success: function (data) {
-                                    $("#campo2").val(data);
+                                success: function (response) {
+                                    if (response.success) {
+                                        alert("El código de acceso existe");
+                                        $("#campo2").val(response.responseText);
+                                        $("#registro").attr("disabled", false);
+                                    } else {
+                                        alert("El código de acceso no existe");
+                                        $("#campo2").val("");
+                                        $("#registro").attr("disabled", true);
+                                    }                                     
                                 }
                             });
                     }
@@ -79,7 +85,8 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+        <h3 class="tituloVerde">Registro de nuevos usuarios</h3>
+        <hr />
         <div class="form-group">
             @Html.Label("Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -152,8 +159,11 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Regresar a la página de inicio", "Index")
+<div class="col-md-offset-2">
+    @Html.ActionLink("Regresar a la página de inicio", "Index","Home")
+</div>
+<div class="col-md-offset-2">
+    @Html.ActionLink("Iniciar sesión con un usuario existente", "Iniciar_sesion")
 </div>
 
 @section Scripts {

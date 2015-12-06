@@ -39,6 +39,8 @@ namespace WebProyecto.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
+            IEnumerable<SelectListItem> roles = db.Usuarios.Select(x => new SelectListItem { Value = x.Rol, Text = x.Rol }).Distinct();
+            ViewBag.Rol = roles;
             return View();
         }
 
@@ -47,15 +49,16 @@ namespace WebProyecto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombre,apellido,telefono,correo,contraseña,equipo_id")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "id,nombre,apellido,telefono,correo,contraseña,Rol, equipo_id")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Administrar", "Home");
             }
-
+            IEnumerable<SelectListItem> roles = db.Usuarios.Select(x => new SelectListItem { Value = x.Rol, Text = x.Rol }).Distinct();
+            ViewBag.Rol = roles;
             ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre", usuario.equipo_id);
             return View(usuario);
         }
@@ -72,6 +75,8 @@ namespace WebProyecto.Controllers
             {
                 return HttpNotFound();
             }
+            IEnumerable < SelectListItem > roles = db.Usuarios.Select (x => new SelectListItem { Value = x.Rol, Text = x.Rol }).Distinct();
+            ViewBag.Rol = roles;
             ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre", usuario.equipo_id);
             return View(usuario);
         }
@@ -81,14 +86,16 @@ namespace WebProyecto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombre,apellido,telefono,correo,contraseña,equipo_id")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "id,nombre,apellido,telefono,correo,contraseña,Rol,equipo_id")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Administrar", "Home");
             }
+            IEnumerable<SelectListItem> roles = db.Usuarios.Select(x => new SelectListItem { Value = x.Rol, Text = x.Rol }).Distinct();
+            ViewBag.Rol = roles;
             ViewBag.equipo_id = new SelectList(db.Equipos, "id", "nombre", usuario.equipo_id);
             return View(usuario);
         }
@@ -116,7 +123,7 @@ namespace WebProyecto.Controllers
             Usuario usuario = db.Usuarios.Find(id);
             db.Usuarios.Remove(usuario);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Administrar", "Home");
         }
 
         // GET: Usuarios/Registrarse
@@ -268,8 +275,16 @@ namespace WebProyecto.Controllers
         [HttpPost]
         public ActionResult getNombreEquipo(string codAcceso)
         {
-            var result = (from r in db.Equipos where r.codAcceso == codAcceso select r).Select(model =>model.nombre).Single();
-            return Json(result, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var result = (from r in db.Equipos where r.codAcceso == codAcceso select r).Select(model => model.nombre).Single();
+                return Json(new { success = true, responseText = result}, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { success = false, responseText = "El código de acceso no existe" }, JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }

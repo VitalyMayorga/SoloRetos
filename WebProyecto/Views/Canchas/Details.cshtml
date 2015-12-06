@@ -1,7 +1,7 @@
 ﻿@model WebProyecto.Models.Cancha
 
 @{
-    ViewBag.Title = "Detalles";
+    ViewBag.Title = "Detalles de cancha";
 }
 
 <h3 class="tituloVerde">Detalles de una cancha existente</h3>
@@ -67,7 +67,7 @@
 
     </dl>
 </div>
-<p>
+<p class="margenIzq">
     @Html.ActionLink("Editar", "Edit", "Canchas", new { id = Model.id }, null) | 
     @Html.ActionLink("Regresar a administración", "Administrar", "Home")
 </p>

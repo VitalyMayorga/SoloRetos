@@ -4,36 +4,42 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h4 class="subtituloVerde">Administración de Usuarios</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear un nuevo usuario", "Create", "Usuarios")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            @Html.DisplayName("Rol")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.apellido)
+            @Html.DisplayName("Nombre")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.telefono)
+            @Html.DisplayName("Apellido")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.correo)
+            @Html.DisplayName("Teléfono")
         </th>
         <th>
+            @Html.DisplayName("Correo")
+        </th>
+        @*<th>
             @Html.DisplayNameFor(model => model.contraseña)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Equipos.nombre)
+            @Html.DisplayName("Equipo")
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rol)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
@@ -46,16 +52,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.correo)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.contraseña)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Equipos.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "Usuarios", new { id=item.id }, null) |
-            @Html.ActionLink("Details", "Details", "Usuarios", new { id=item.id }, null) |
-            @Html.ActionLink("Delete", "Delete", "Usuarios", new { id=item.id }, null)
+            @Html.ActionLink("Editar", "Edit", "Usuarios", new { id=item.id }, null) |
+            @Html.ActionLink("Detalles", "Details", "Usuarios", new { id=item.id }, null) |
+            @Html.ActionLink("Borrar", "Delete", "Usuarios", new { id=item.id }, null)
         </td>
     </tr>
 }

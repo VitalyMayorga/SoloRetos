@@ -84,7 +84,7 @@ namespace WebProyecto.Controllers
             {
                 db.Entry(equipos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Administrar", "Home");
             }
             return View(equipos);
         }
@@ -112,7 +112,7 @@ namespace WebProyecto.Controllers
             Equipos equipos = db.Equipos.Find(id);
             db.Equipos.Remove(equipos);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Administrar", "Home");
         }
         //Obtiene el telefono de los equipos
         [HttpPost]
@@ -215,7 +215,7 @@ namespace WebProyecto.Controllers
                             where (r.id_cancha == datos.id && r.fecha > fecha1 && r.fecha < fecha2)
                             group new {e} by new { e.nombre }
                                 into resultSet
-                                orderby resultSet.Count()
+                                orderby resultSet.Count() descending
                                 select new
                                 {
                                     nombre = resultSet.Key.nombre,
@@ -226,14 +226,9 @@ namespace WebProyecto.Controllers
                 model.Add(new Equipos()
                 {
                     nombre = item.nombre,
-                    victorias = item.victorias,
-                    
+                    victorias = item.victorias,      
                 });
             }
-            //var ranking = equipos.GroupBy(e => e.nombre)
-            //             .OrderBy(g => g.Count())
-            //             .SelectMany(g => g)
-            //             .ToList();
             return PartialView("~/Views/Equipos/DatosCancha.cshtml", model);
         }
     }
