@@ -12,9 +12,6 @@
             $("#adminEquipos").click(function () {
                 $("#partial").load("@Url.Action("getEquipos", "Home")");
             });
-            $("#adminRetos").click(function () {
-                $("#partial").load("@Url.Action("getRetos", "Home")");
-            });
             $("#adminUsuarios").click(function () {
                 $("#partial").load("@Url.Action("getUsuarios", "Home")");
             });
@@ -29,9 +26,6 @@
     </div>
     <div class="botones">
         <input type="button" id="adminEquipos" value="Administración de Equipos" class="btn btn-default" />
-    </div>
-    <div class="botones">
-        <input type="button" id="adminRetos" value="Administración de Retos" class="btn btn-default" />
     </div>
     <div class="botones">
         <input type="button" id="adminUsuarios" value="Administración de Usuarios" class="btn btn-default" />

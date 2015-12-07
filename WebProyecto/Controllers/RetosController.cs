@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -133,7 +134,9 @@ namespace WebProyecto.Controllers
         [HttpPost]
         public ActionResult cargarRetos(string fecha)
         {
-            DateTime fechita = DateTime.Parse(fecha);
+            string formato = "MM/dd/yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            DateTime fechita = DateTime.ParseExact(fecha,formato,provider);
             int idCancha = Convert.ToInt32(Session["idCancha"]);
             
             var retos = from h in db.Retos
@@ -282,7 +285,9 @@ namespace WebProyecto.Controllers
         [HttpPost]
         public ActionResult cargarRetosCancha(string fecha,string cancha)
         {
-            DateTime fechita = DateTime.Parse(fecha);
+            string formato = "MM/dd/yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            DateTime fechita = DateTime.ParseExact(fecha, formato, provider);
             int idEquipo = Convert.ToInt32(Session["idEquipo"]);
             var idCancha = (from c in db.Canchas
                            where c.nombre == cancha

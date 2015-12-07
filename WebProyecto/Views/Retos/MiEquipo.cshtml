@@ -14,10 +14,10 @@
     });
     </script>
 </head>
-<h2>@ViewBag.Equipo</h2>
+<h3 class="tituloVerde">@ViewBag.Equipo</h3>
 
 
-<div class="Centrado">
+<div class="tabla">
 <table class="table">
     <tr>
         <th>
@@ -81,10 +81,6 @@
     }
 
 </table>
-    <div class="form-group"><label>Victorias: @ViewBag.victorias</label></div>
-    <div class="form-group"><label>Empates: @ViewBag.empates</label></div>
-    <div class="form-group"><label>Derrotas: @ViewBag.derrotas</label></div>
+    <div class="form-group"><label>Victorias: @ViewBag.victorias</label> | <label>Empates: @ViewBag.empates</label> | <label>Derrotas: @ViewBag.derrotas</label></div>
     <div class="form-group"><input type="button" id="Buscar" value="Buscar Reto" class="btn btn-default"></div>    
-    
-
-    </div>
+</div>

@@ -3,11 +3,7 @@
     ViewBag.Title = "Nuevo_Usuario";
 }
 
-<h1>Nuevo Usuario</h1>
+<h3 class="tituloVerde">Nuevo usuario</h3>
+<h4 class="texto">Usuario creado con éxito</h4>
 
-@if (TempData["registro"] != null)
-{
-    <p>@TempData["registro"]</p>
-}
-
-<p>@Html.ActionLink("Regresar a la página principal", "Index", "Home")</p>
+<div class="col-md-2">@Html.ActionLink("Regresar a la página principal", "Index", "Home")</div>
