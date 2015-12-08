@@ -40,10 +40,9 @@ ul.listar {
 }
 
 .ladoDer {
-    float:left;
-    margin-left:2%;
-    height: 100%;
-    width: 65%-5px;
+    float: left;
+    margin-left: 2%;
+    width: 63%;
 
 }
 
@@ -56,10 +55,11 @@ ul.listar {
 }
 
 .ladoDer2 {
-    float:left;
-    margin-left:2%;
+    float: left;
+    margin-left: 2%;
     height: 100%;
-    width: 50%-5px;
+    width: 45%;
+    margin-right: 2px;
 
 }
 .tituloVerde {
@@ -97,8 +97,9 @@ div.ui-datepicker {
 }
 
 .datosCancha{
-    margin-top: 10%;
-    margin-bottom: 20%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 30%;
 }
 
 .margenIzq{

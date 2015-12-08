@@ -13,7 +13,7 @@
     <script type="text/javascript">
         function onChangeCalender() {
             $("#retos").load("@Url.Action("cargarRetosCancha", "Retos")",
-            { fecha: $('#datePicker').val(), cancha:$("#nombre").val() });
+            { fecha: $('#datePicker').val(), cancha: $("#nombre option:selected").text() });
         }
 
     </script>
@@ -124,14 +124,13 @@
     <script type="text/javascript">
         $(function () {
             $("#BuscarR").click(function () {
-                var nombreC = $("#nombre option:selected").text();
-                @*$("#partial").load("@Url.Action("cargarRetosCancha", "Retos")",
-                { fecha: $('#datePicker').val(), cancha: $("#nombre").val() });*@
+                $("#retos").load("@Url.Action("cargarRetosCancha", "Retos")",
+                { fecha: $('#datePicker').val(), cancha: $("#nombre option:selected").text() });
                 $("#ladoDer2").show();
 
             });
-           
-            
+
+
         });
     </script>
 </head>
