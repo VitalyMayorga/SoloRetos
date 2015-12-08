@@ -140,7 +140,7 @@ namespace WebProyecto.Controllers
             int idCancha = Convert.ToInt32(Session["idCancha"]);
             
             var retos = from h in db.Retos
-                           where h.id_cancha == idCancha && h.fecha == fechita && h.id_equipo1 != h.id_equipo2
+                           where h.id_cancha == idCancha && h.fecha == fechita /*&& h.id_equipo1 != h.id_equipo2*/
                            select h;
 
 

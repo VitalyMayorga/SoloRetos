@@ -37,7 +37,14 @@
                 @Html.DisplayFor(modelItem => item.Equipos.nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Equipos1.nombre)
+                @if (item.Equipos.nombre == item.Equipos1.nombre)
+                {
+                   @Html.Display("Pendiente");
+                }
+                else {
+                    @Html.DisplayFor(modelItem => item.Equipos1.nombre)
+                }
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.resultado)

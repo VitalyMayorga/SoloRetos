@@ -312,7 +312,7 @@
     <Content Include="Content\themes\base\resizable.css" />
     <Content Include="Content\themes\base\selectable.css" />
     <Content Include="Content\themes\base\selectmenu.css" />
-    <Content Include="Content\slider.css" />
+    <Content Include="Content\themes\base\slider.css" />
     <Content Include="Content\themes\base\sortable.css" />
     <Content Include="Content\themes\base\spinner.css" />
     <Content Include="Content\themes\base\tabs.css" />
