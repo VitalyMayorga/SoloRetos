@@ -344,7 +344,7 @@ namespace WebProyecto.Controllers
                             select c).Select(model => model.id).Single();
 
             var precio = (from h in db.Horarios
-                          where h.horaInicio <= horaI && horaF <= h.horaFinal
+                          where h.horaInicio <= horaI && horaF <= h.horaFinal && h.id_cancha == idCancha
                           select h).Select(model => model.precio).Single();
             Reto reto = new Reto();
             reto.id_equipo1 = idEquipo;
