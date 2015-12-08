@@ -193,7 +193,7 @@ namespace WebProyecto.Controllers
             reto.ganador = ganador;
             reto.resultado = marcador;
             db.SaveChanges();
-            return RedirectToAction("BuscarRetos", "Canchas");
+            return RedirectToAction("AdmCanchas", "Canchas");
         }
 
         // GET: Retos/MiEquipo/5
