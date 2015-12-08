@@ -336,7 +336,7 @@ namespace WebProyecto.Controllers
         public ActionResult publicarReto(string cancha, string horaInicio, string horaFinal, string fecha)
         {
             string horaItmp = horaInicio.Substring(0, 5);
-            string horaFtmp = horaInicio.Substring(0, 5);
+            string horaFtmp = horaFinal.Substring(0, 5);
             DateTime fech = DateTime.ParseExact(fecha, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
             TimeSpan horaI = DateTime.ParseExact(horaItmp, "HH:mm", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay;
             TimeSpan horaF = DateTime.ParseExact(horaFtmp, "HH:mm", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay;
