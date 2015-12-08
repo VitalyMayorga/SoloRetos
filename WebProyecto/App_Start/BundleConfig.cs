@@ -32,7 +32,29 @@ namespace WebProyecto
                       "~/Content/main.css",
                       "~/Content/styles.css"));
 
-            
+            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+           "~/content/site.css",
+            "~/content/themes/base/accordion.css",
+            "~/content/themes/base/all.css",
+            "~/content/themes/base/autocomplete.css",
+            "~/content/themes/base/base.css",
+            "~/content/themes/base/button.css",
+            "~/content/themes/base/core.css",
+            "~/content/themes/base/datepicker.css",
+            "~/content/themes/base/dialog.css",
+            "~/content/themes/base/draggable.css",
+            "~/content/themes/base/menu.css",
+            "~/content/themes/base/progressbar.css",
+            "~/content/themes/base/resizable.css",
+            "~/content/themes/base/selectmenu.css",
+            "~/content/themes/base/slider.css",
+            "~/content/themes/base/sortable.css",
+            "~/content/themes/base/spinner.css",
+            "~/content/themes/base/tabs.css",
+            "~/content/themes/base/theme.css",
+            "~/content/themes/base/tooltip.css"));
+
+
         }
     }
 }

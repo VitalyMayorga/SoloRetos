@@ -336,8 +336,8 @@ namespace WebProyecto.Controllers
         public ActionResult publicarReto(string cancha, string horaInicio, string horaFinal, string fecha)
         {
             DateTime fech = DateTime.ParseExact(fecha, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-            TimeSpan horaI = TimeSpan.Parse(horaInicio);
-            TimeSpan horaF = TimeSpan.Parse(horaFinal);
+            TimeSpan horaI = DateTime.ParseExact(horaInicio,"HH:mm", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay;
+            TimeSpan horaF = DateTime.ParseExact(horaInicio, "HH:mm", System.Globalization.CultureInfo.InvariantCulture).TimeOfDay;
             int idEquipo = Convert.ToInt32(Session["idEquipo"]);
             var idCancha = (from c in db.Canchas
                             where c.nombre == cancha
